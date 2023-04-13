@@ -1,0 +1,40 @@
+.input-container-left {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: 60vw;
+    padding: 1rem;
+    padding-left: 1.2rem;
+    margin-bottom: 1.55vw;
+    box-sizing: border-box;
+}
+
+.input-container-right {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: 2vw;
+    padding: 1rem;
+    margin-bottom: 1.55vw;
+    margin-right: -2vw;
+}
+  
+.input-container-left input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 3rem;
+    background-color: #f2f2f2;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    border-radius: 0.4rem;
+    box-sizing: border-box;
+    overflow: auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.input-container-right img {
+    /* margin-right: -2vw; */
+}

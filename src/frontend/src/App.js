@@ -1,20 +1,20 @@
 import './App.css';
+import { browserRouter, Routes, Route, BrowserRouter } from "react-router-dom";
+import React, { useRef, useEffect, useState } from "react";
+import ChatBot from "./pages/ChatBot";
 
 function App() {
     return (
-        <div className="App">
-            <header className="App-header">
-                <p> Edit <code>src/App.js</code> and save to reload </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
+        <>
+        <div className="container">
+                <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<ChatBot />} />
+                    <Route path="*" element={<ChatBot />} />
+                </Routes>
+            </BrowserRouter>
         </div>
+        </>
     );
 }
 
