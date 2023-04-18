@@ -2,6 +2,7 @@ import React from "react";
 import MenuButton from '../components/MenuButton';
 import Profile from '../components/Profile';
 import Header from '../components/Header';
+import History from '../components/History';
 
 import profile from "../assets/icons/profile.ico"
 
@@ -34,7 +35,7 @@ const ChatBot = () => {
             </div>
             <div className="w-5/6 bg-light flex rounded-2xl">
                 <div className="w-3/4 relative">
-                    <Header title="Apa Nama Ibukota Jakarta"/>
+                    <Header title="Apakah nama ibukota negara Indonesia?"/>
                     <div className="h-px bg-slate-200"></div>
                     <div>
                         {/* konten chat */}
@@ -44,8 +45,14 @@ const ChatBot = () => {
                         <input className="bg-gray-700 h-10 pl-3 text-light rounded-md focus:border-none" placeholder="What are you thinking today?"></input>
                     </div>
                 </div>
-                <div className="w-1/4 bg-greyish rounded-r-2xl">
-                    
+                <div className="w-1/4 bg-greyish rounded-r-2xl pl-7 pr-7 relative">
+                    <p className="text-lg font-medium pt-5 pb-3">History Chat</p>
+                    <History 
+                        title="Apakah nama ibukota negara Indonesia?"
+                        content="Ibukota negara Indonesia adalah Jakarta. Akan tetapi ada rencana melakukan pemindahan ibukota baru..."/>
+                    <History 
+                        title="Apakah mata kuliah terseru semester 4?"
+                        content="Menurut riset yang dilakukan oleh sistem kami bernama GatauNamanya, udah pasti stima jawabannya :D"/>
                 </div>
             </div>
         </div>
