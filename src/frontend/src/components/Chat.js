@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import HistoryContent from './History';
 
 import bot from "../assets/icons/bot.webp"
+import send from "../assets/icons/send.png"
 
 const QuestionBubble = ({ message, profpics }) => {
     return (
@@ -47,8 +48,8 @@ const Chat = (props) => {
     const bottomRef = useRef(null);
     const [questions, setQuestions] = useState([]);
     const [newQuestion, setNewQuestion] = useState('');
-    const [newAnswer, setNewAnswer] = useState('');
-    const [chatHistory, setChatHistory] = useState([]);
+
+    let ans = "Jawabanmu tidak ada dalam database kami";
 
     // Function that handles the new response
     const handleSubmit = (event) => {
@@ -60,21 +61,20 @@ const Chat = (props) => {
 
     const handleAnswer = (index) => {
         const updatedQuestions = [...questions];
-        setNewAnswer("Jawabanmu tidak ada dalam database kami");
-        console.log(newAnswer);
+        ans = "Jawaban pertanyaan kamu tidak ada dalam database kami.";
         if (updatedQuestions[index].question === "Nama ibukota negara Indonesia yang baru") {
-            setNewAnswer("Ibukota negara Indonesia adalah Jakarta. Akan tetapi ada rencana melakukan pemindahan ibukota baru. Letak Ibu Kota baru Indonesia kembali diperbincangkan setelah pemerintah mengumumkan nama Nusantara. Nama Nusantara diumumkan oleh Kepala Bappenas Suharso Monoarfa saat rapat bersama panja RUU Ibu Kota Negara (IKN). Berada di Kalimantan Timur, Nusantara akan menggantikan Jakarta sebagai Ibukota. Di fase awal, Istana Negara akan dipindah segera pada 2024 mendatang bersama 4 Kementerian.");
+            ans = "Ibukota negara Indonesia adalah Jakarta. Akan tetapi ada rencana melakukan pemindahan ibukota baru. Letak Ibu Kota baru Indonesia kembali diperbincangkan setelah pemerintah mengumumkan nama Nusantara. Nama Nusantara diumumkan oleh Kepala Bappenas Suharso Monoarfa saat rapat bersama panja RUU Ibu Kota Negara (IKN). Berada di Kalimantan Timur, Nusantara akan menggantikan Jakarta sebagai Ibukota. Di fase awal, Istana Negara akan dipindah segera pada 2024 mendatang bersama 4 Kementerian.";
         } else if (updatedQuestions[index].question === "Mata kuliah wajib terseru semester 4") {
-            setNewAnswer("Menurut riset yang dilakukan oleh sistem kami bernama GatauNamanya, udah pasti stima jawabannya :D");
+            ans = "Menurut riset yang dilakukan oleh sistem kami bernama GatauNamanya, udah pasti stima jawabannya :D";
         } else if (updatedQuestions[index].question === "Asisten mata kuliah Strategi Algoritma ter-...") {
-            setNewAnswer("Secara umum, asisten mata kuliah Strategi Algoritma memiliki kelakuan yang mirip, yaitu [Pesan terpotong]...");
+            ans = "Secara umum, asisten mata kuliah Stima memiliki perwatakan yang mirip, yaitu [Pesan terpotong]...";
         }
         console.log(updatedQuestions[index].question);
-        console.log(newAnswer);
-        updatedQuestions[index].answer = newAnswer;
+        console.log(ans);
+        updatedQuestions[index].answer = ans;
         updatedQuestions[index].answered = true;
         setQuestions(updatedQuestions);
-        setNewAnswer('');
+        count++;
     }
     
     // Function that handles user submission
@@ -99,7 +99,7 @@ const Chat = (props) => {
                             {!question.answered ? (
                                 <div>{handleAnswer(index)}</div>
                                 ) : (
-                                <AnswerBubble message={newAnswer} />
+                                <AnswerBubble message={question.answer} />
                             )}
                         </div>
                     ))}
@@ -115,7 +115,9 @@ const Chat = (props) => {
                                 type="text"
                                 placeholder="What are you thinking today?">
                             </input>
-                            <button type="submit">Ask</button>
+                            <button type="submit" className='ml-1'>
+                                <img src={send} alt="send" className="w-10"></img>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -126,8 +128,14 @@ const Chat = (props) => {
                     onClick={handleClick}>+ New Chat
                 </button>
                 <div className='h-150 overflow-auto flex flex-col chat-interface'>
-                    {chatHistory.map((history, index) => (
-                        <HistoryContent key={index} title={history.question} content={history.answer}/>
+                    {questions.map((content, idx) => (
+                        <div key={idx}>
+                            {count === 0 ? (
+                                <HistoryContent title={content.question} content={content.answer}/>
+                                ) : (
+                                <HistoryContent title={content.question} content={content.answer}/>
+                            )}
+                        </div>
                     ))}
                 </div>
             </div>
