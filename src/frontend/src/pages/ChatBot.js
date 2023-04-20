@@ -5,6 +5,9 @@ import History from '../components/History';
 import Chat from '../components/Chat';
 
 import profile from "../assets/icons/profile.ico"
+import chat from "../assets/icons/chat.png"
+import search from "../assets/icons/search.png"
+import star from "../assets/icons/star.png"
 
 const backgroundStyle = {
     backgroundColor : "#151718",
@@ -24,9 +27,9 @@ const ChatBot = () => {
                 <div className="flex flex-col">
                     <p className="text-lg pb-3 pl-3 pr-3 text-left text-light">Menu</p>
                     <div className="h-px bg-slate-400 w-56"></div>
-                    <MenuButton label="Chat"/>
-                    <MenuButton label="Search"/>
-                    <MenuButton label="Favorite"/>
+                    <MenuButton label="Chat" images={chat}/>
+                    <MenuButton label="Search" images={search}/>
+                    <MenuButton label="Favorite" images={star}/>
                     <MenuButton label="Archieved"/>
                 </div>
                 <div className="flex flex-col pt-5">
@@ -47,7 +50,7 @@ const ChatBot = () => {
                 <Chat profpics={profile} />
                 <div className="w-1/4 bg-greyish rounded-r-2xl pl-7 pr-7 relative">
                     <p className="text-lg font-medium pt-5 pb-3">History Chat</p>
-                    <button class="py-2 px-6 mb-3 text-light hover:bg-gray-500 bg-gray-600 rounded-md w-full">New Chat</button>
+                    <button class="py-2 px-6 mb-3 text-light hover:bg-gray-500 bg-gray-600 rounded-md w-full">+ New Chat</button>
                     <History 
                         title="Nama ibukota negara Indonesia yang baru"
                         content="Ibukota negara Indonesia adalah Jakarta. Akan tetapi ada rencana melakukan pemindahan ibukota baru..."/>
