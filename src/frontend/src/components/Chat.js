@@ -1,19 +1,43 @@
 import Header from './Header';
 import React, { useState, useRef, useEffect } from "react";
 
-const ChatBubble = ({ message, profpics }) => {
-    return (
-        <div class='current-bubble'>
-            <div className="bg-gray-200 mt-4 py-6 px-8 pb-10 w-full rounded-lg" style={{float: 'right'}}>
-                <div className='text-lg w-full'>
-                    {message}
+import bot from "../assets/icons/bot.png"
+
+const ChatBubble = ({ message, profpics, type }) => {
+    if (type === "user") {
+        return (
+            <div class='current-bubble'>
+                <div className="bg-gray-100 mt-4 py-6 px-8 pb-16 w-full rounded-lg border border-slate-300" style={{float: 'right'}}>
+                    <div className='text-lg w-full'>
+                        {message}
+                    </div>
+                </div>
+                <div className='mr-8 mt-[-2.5rem] bg-gray-700 px-2 pt-2 pb-2 rounded-lg' style={{float: 'right'}}>
+                    <img src={profpics} alt="Profile" className="h-16"></img>
+                </div>
+                <div>
+                    <button class="py-1 px-2 mt-2.5 mb-1 text-light hover:bg-gray-400 bg-gray-500 rounded-md">Edit</button>
                 </div>
             </div>
-            <div className='mr-8 mt-[-2.5rem] bg-gray-700 px-2 pt-2 pb-2 rounded-lg' style={{float: 'right'}}>
-                <img src={profpics} alt="Profile" className="h-16"></img>
+        );
+    } else if (type === "bot") {
+        return (
+            <div class='current-bubble'>
+                <div className="bg-gray-300 mt-4 py-6 px-8 pb-16 w-full rounded-lg" style={{float: 'left'}}>
+                    <div className='text-lg w-full'>
+                        {message}
+                    </div>
+                </div>
+                <div className='ml-8 mt-[-2.5rem] bg-gray-700 px-2 pt-2 pb-2 rounded-lg' style={{float: 'left'}}>
+                    <img src={bot} alt="Bot" className="h-16"></img>
+                </div>
+                <div style={{float: 'right'}}>
+                    <button class="py-1 px-2 mt-2.5 mb-1 mr-3 text-light hover:bg-gray-400 bg-gray-500 rounded-md">Regenerate Response</button>
+                    <button class="py-1 px-2 mt-2.5 mb-1 text-light hover:bg-gray-400 bg-gray-500 rounded-md">Copy</button>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 const Chat = (props) => {
@@ -43,7 +67,12 @@ const Chat = (props) => {
             <div className="h-px bg-slate-200 ml-[-1.5rem] mr-[-1.5rem]"></div>
             <div className='h-150 overflow-auto flex flex-col chat-interface'>
                 {chatBubbles.map((message, index) => (
-                    <ChatBubble key={index} message={message} profpics={props.profpics} />
+                    <ChatBubble key={index} message={message} type="user" profpics={props.profpics} />
+                ))}
+                {chatBubbles.map((message, index) => (
+                    <ChatBubble key={index} message="Ibukota negara Indonesia adalah Jakarta. Akan tetapi ada rencana melakukan pemindahan ibukota baru.
+                    Letak Ibu Kota baru Indonesia kembali diperbincangkan setelah pemerintah mengumumkan nama Nusantara. Nama Nusantara diumumkan oleh Kepala Bappenas Suharso Monoarfa saat rapat bersama panja RUU Ibu Kota Negara (IKN).
+                    Berada di Kalimantan Timur, Nusantara akan menggantikan Jakarta sebagai Ibukota. Di fase awal, Istana Negara akan dipindah segera pada 2024 mendatang bersama 4 Kementerian." type="bot" profpics={props.profpics} />
                 ))}
                 <div ref={bottomRef} />
             </div>
