@@ -9,6 +9,13 @@ module.exports = {
         lowlight: "#B4ACAC",
         greyish: "#EEF2F2",
       },
+      width: {
+        '128': '32rem',
+      },
+      height: {
+        '128': '32rem',
+        '150': '39rem',
+      }
     },
   },
   plugins: [],

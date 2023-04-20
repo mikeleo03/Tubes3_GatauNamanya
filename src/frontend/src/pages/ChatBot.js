@@ -44,15 +44,19 @@ const ChatBot = () => {
                 </div>
             </div>
             <div className="w-5/6 bg-light flex rounded-2xl">
-                <Chat />
+                <Chat profpics={profile} />
                 <div className="w-1/4 bg-greyish rounded-r-2xl pl-7 pr-7 relative">
                     <p className="text-lg font-medium pt-5 pb-3">History Chat</p>
+                    <button class="py-2 px-6 mb-3 text-light hover:bg-gray-500 bg-gray-600 rounded-md w-full">New Chat</button>
                     <History 
-                        title="Apakah nama ibukota negara Indonesia?"
+                        title="Nama ibukota negara Indonesia yang baru"
                         content="Ibukota negara Indonesia adalah Jakarta. Akan tetapi ada rencana melakukan pemindahan ibukota baru..."/>
                     <History 
-                        title="Apakah mata kuliah wajib terseru semester 4?"
+                        title="Mata kuliah wajib terseru semester 4"
                         content="Menurut riset yang dilakukan oleh sistem kami bernama GatauNamanya, udah pasti stima jawabannya :D"/>
+                    <History 
+                        title="Asisten mata kuliah Strategi Algoritma ter-..."
+                        content="Secara umum, asisten mata kuliah Strategi Algoritma memiliki kelakuan yang mirip, yaitu [Pesan terpotong]..."/>
                 </div>
             </div>
         </div>
