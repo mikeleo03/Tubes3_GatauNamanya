@@ -8,6 +8,7 @@ import profile from "../assets/icons/profile.ico"
 import chat from "../assets/icons/chat.png"
 import search from "../assets/icons/search.png"
 import star from "../assets/icons/star.png"
+import archieved from "../assets/icons/archieved.png"
 
 const backgroundStyle = {
     backgroundColor : "#151718",
@@ -30,7 +31,7 @@ const ChatBot = () => {
                     <MenuButton label="Chat" images={chat}/>
                     <MenuButton label="Search" images={search}/>
                     <MenuButton label="Favorite" images={star}/>
-                    <MenuButton label="Archieved"/>
+                    <MenuButton label="Archieved" images={archieved}/>
                 </div>
                 <div className="flex flex-col pt-5">
                     <p className="text-lg pb-3 pl-3 pr-3 text-left text-light">Algorithm</p>
