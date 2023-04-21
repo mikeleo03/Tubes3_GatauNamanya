@@ -31,12 +31,11 @@ async function find_question(q) {
 
 async function delete_question(q) {
   let id = await find_question(q);
-  console.log(id);
   if (id != -1) {
     coll.deleteOne({ _id : id});
     return 0;
   } else {
-    return 1;
+    return -1;
   }
 }
 
@@ -47,14 +46,12 @@ async function save_question(q,a) {
   }
   await delete_question(q);
   const result = await coll.insertOne(QA);
-  console.log(result);
 }
 
 async function get_answer(q) {
   let id = await find_question(q);
   if (id != -1) {
     let answer = await coll.findOne({_id : id});
-    console.log(answer["answer"]);
     return answer["answer"];
   } else {
     return -1;
