@@ -1,7 +1,9 @@
+const Database = require("./Database");
+
 const type_regex = {
     date : /[0-9][0-9]\/[0-9][0-9]\/[0-9][0-9][0-9][0-9]/,
     calculator : /(\(*[0-9]+(\.[0-9]+)?[-+*/%^][0-9]+(\.[0-9]+)?\)*)+/,
-    add : /[(tambahkan)(tambah)] pertanyaan \S+ dengan jawaban \S+/i,
+    add : /(tambahkan|tambah) pertanyaan \S+ dengan jawaban \S+/i,
     delete : /hapus pertanyaan \S+/i
 }
 
@@ -111,25 +113,31 @@ function identify_statement_type(text) {
     return "question";
 }
 
-export function action(text) {
+async function action(text) {
     type = identify_statement_type(text);
+    let q,a = "";
     switch (type) {
         case "date" :
             let split_date = text.split("/");
             let d = new Date(split_date[1] + "/" + split_date[0] + "/" + split_date[2]);
-            console.log(days[d.getDay()])
             return days[d.getDay()];
         case "calculator" :
-            console.log(calculate(text));
-            break;
+            return calculate(text);
         case "add" :
-            console.log("add");
-            break;
+            text = text.replace(/(tambahkan|tambah) pertanyaan /i, "").replace(/dengan jawaban /i, "").trim().split(" ");
+            q = text[0];
+            a = text[1];
+            await Database.save_question(q,a);
+            return "Pertanyaan " + q + " ditambahkan dengan jawaban " + a;
         case "delete" :
-            console.log("delete");
-            break;
+            text = text.replace(/hapus pertanyaan /i, "").trim();
+            q = text;
+            a = await Database.delete_question(q);
+            return a;
         default :
-            console.log("pertanyaan");
-            break;
+            a = await Database.get_answer(text);
+            return a;
     }
 }
+
+exports.action = action;
