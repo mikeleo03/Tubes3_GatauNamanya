@@ -19,18 +19,20 @@ let coll = db.collection("question");
 
 console.log("Connect successful");
 
-async function find_question(q) {
+async function find_question(q, type) {
   const cursor = coll.find({});
-  for await (const doc of cursor) {
-    if (BooyerMoore.booyer_moore(q, doc["question"]) != -1)  {
-      return doc["_id"];
+  if (type == "BM") {
+    for await (const doc of cursor) {
+      if (BooyerMoore.booyer_moore(q, doc["question"]) != -1)  {
+        return doc["_id"];
+      }
     }
+    return -1;
   }
-  return -1;
 }
 
-async function delete_question(q) {
-  let id = await find_question(q);
+async function delete_question(q, type="BM") {
+  let id = await find_question(q, type);
   if (id != -1) {
     coll.deleteOne({ _id : id});
     return 0;
@@ -39,17 +41,17 @@ async function delete_question(q) {
   }
 }
 
-async function save_question(q,a) {
+async function save_question(q,a,type="BM") {
   const QA = {
     question : q,
     answer : a
   }
-  await delete_question(q);
+  await delete_question(q, type);
   const result = await coll.insertOne(QA);
 }
 
-async function get_answer(q) {
-  let id = await find_question(q);
+async function get_answer(q, type="BM") {
+  let id = await find_question(q, type);
   if (id != -1) {
     let answer = await coll.findOne({_id : id});
     return answer["answer"];
