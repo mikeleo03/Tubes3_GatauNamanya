@@ -54,9 +54,11 @@ const Chat = (props) => {
     // Function that handles the new response
     const handleSubmit = (event) => {
         event.preventDefault();
-        setQuestions([...questions, { question: newQuestion, answer: '', answered: false }]);
-        setNewQuestion('');
-        console.log(questions);
+        if (newQuestion !== "") {
+            setQuestions([...questions, { question: newQuestion, answer: '', answered: false }]);
+            setNewQuestion('');
+            console.log(questions);
+        }
     }
 
     const handleAnswer = (index) => {
