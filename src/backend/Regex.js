@@ -111,7 +111,7 @@ function identify_statement_type(text) {
     return "question";
 }
 
-function action(text) {
+export function action(text) {
     type = identify_statement_type(text);
     switch (type) {
         case "date" :

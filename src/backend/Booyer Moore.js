@@ -18,7 +18,7 @@ function last_index(char) {
     }
 }
 
-export function booyer_moore(text,pattern) {
+function booyer_moore(text,pattern) {
     // Reset last index dictionary
     char_last_idx = {};
     let n = text.length;
@@ -49,3 +49,5 @@ export function booyer_moore(text,pattern) {
 
     return -1;
 }
+
+exports.booyer_moore = booyer_moore;
