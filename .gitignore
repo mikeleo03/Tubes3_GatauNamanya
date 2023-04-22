@@ -1,5 +1,6 @@
 
 *.ts
+.env
 node_modules
 node_modules/.package-lock.json
 node_modules/@types/node/LICENSE
