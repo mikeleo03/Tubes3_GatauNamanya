@@ -6,7 +6,6 @@ import Profile from './Profile';
 
 // Icon part
 import chat from "../assets/icons/chat.png"
-import search from "../assets/icons/search.png"
 import star from "../assets/icons/star.png"
 import archieved from "../assets/icons/archieved.png"
 import text from "../assets/icons/text.png"
@@ -21,7 +20,6 @@ const Menu = (props) => {
                 <p className="text-lg pb-3 pl-3 pr-3 text-left text-light">Menu</p>
                 <div className="h-px bg-slate-400 w-56"></div>
                 <MenuButton label="Chat" images={chat}/>
-                <MenuButton label="Search" images={search}/>
                 <MenuButton label="Favorite" images={star}/>
                 <MenuButton label="Archieved" images={archieved}/>
             </div>
