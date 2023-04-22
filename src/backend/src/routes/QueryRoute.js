@@ -6,7 +6,11 @@ const router = express.Router();
 //Render Home
 
 router.get('/', (req, res) => {
-    res.json({data: "bruh" })
+
+    Query.find()
+    .then(queries => {
+        res.json({data : queries})})
+    .catch(err => {res.status(500).send({message : err.message})})
 })
 
 export default router;
