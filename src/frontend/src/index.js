@@ -16,6 +16,11 @@ root.render(
             clientId={clientId}
             redirectUri={window.location.origin}
             audience={audience}
+            authorizationParams={{
+                redirect_uri: window.location.origin,
+                audience: `https://${domain}/api/v2/`,
+                // scope: "read:current_user update:current_user_metadata"
+              }}
         >
             <App />
         </Auth0Provider>

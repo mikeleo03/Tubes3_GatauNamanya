@@ -5,6 +5,7 @@ import homeRouter from './routes/HomeRoute.js';
 import queryRouter from './routes/QueryRoute.js'
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import checkJwt from './authz/check-jwt.js';
 
 dotenv.config();
 const app = express();
@@ -34,8 +35,20 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use('/', homeRouter)
-app.use('/queries', queryRouter)
+// UNSECURE API
+// app.use('/', homeRouter)
+// app.use('/queries', queryRouter)
+
+// SECURE API
+app.use('/', checkJwt, homeRouter)
+app.use('/queries', checkJwt, queryRouter)
+
+app.use((err, req, res, next) => {  
+    if (err.name === 'UnauthorizedError') {
+        res.status(401).json({"error" : err.name + ": " + err.message});
+        console.log({"error" : err.name + ": " + err.message})
+    }
+})
 
 //Connecting to DB
 read_env()
