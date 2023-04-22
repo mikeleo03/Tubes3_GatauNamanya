@@ -5,6 +5,9 @@ const router = express.Router();
 
 //Render Home
 
+router.get('/', (req, res) => {
+    res.json({data: "bruh" })
+})
 router.get('/queries', (req, res) => {
 
     Query.find()
@@ -12,8 +15,5 @@ router.get('/queries', (req, res) => {
         res.json({data : queries})})
     .catch(err => {res.status(500).send({message : err.message})})
 })
-
-
-
 
 export default router;
