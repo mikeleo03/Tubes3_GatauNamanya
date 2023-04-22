@@ -1,7 +1,10 @@
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const BooyerMoore = require("./Booyer Moore");
 const { get } = require('http');
-const uri = "mongodb+srv://T5vh1Hihi:Pq0xnCW9Fnd59dGx@cluster0.jnraskc.mongodb.net/?retryWrites=true&w=majority";
+import dotenv from 'dotenv'
+dotenv.config({ silent: true })
+
+const uri = process.env.NODE_ENV === "production"? process.env.CONNECT_DB : process.env.CONNECT_DB_DEV
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {

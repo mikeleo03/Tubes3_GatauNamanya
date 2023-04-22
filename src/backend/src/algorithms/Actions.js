@@ -1,5 +1,5 @@
-const Database = require("./Database");
-const Regex = require("./Regex");
+const Database = require("../Database");
+const Regex = require("../../Regex");
 const Calculate = require("./Calculate");
 
 const days = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
