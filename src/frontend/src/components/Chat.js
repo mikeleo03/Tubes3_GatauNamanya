@@ -46,7 +46,7 @@ const AnswerBubble = ({ message }) => {
 
 const PAGE_SIZE = 20;
 
-function ChatHistory({ pages, onPageChange, incrementPage, setPageNow }) {
+function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPageNow }) {
     const handleAddPage = () => {
         console.log(pages.length);
         if (pages.length < PAGE_SIZE) {
@@ -54,7 +54,7 @@ function ChatHistory({ pages, onPageChange, incrementPage, setPageNow }) {
             incrementPage();
             setPageNow(pages.length);
         } else {
-            toast.error('You have excedeed the maximum number of pages!', {
+            toast.error('You have excedeed the maximum number of chat pages!', {
                 position: toast.POSITION.TOP_RIGHT
             });
         }
@@ -65,11 +65,36 @@ function ChatHistory({ pages, onPageChange, incrementPage, setPageNow }) {
         setPageNow(pageIndex);
     };
 
+    const handlePageDelete = (pageIndex) => {
+        console.log(pageIndex);
+        if (pages.length > 1) {
+            if (pages.slice(pageIndex + 1).length !== 0) {
+                onPageChange([...pages.slice(0, pageIndex), ...pages.slice(pageIndex + 1)]);
+            } else {
+                console.log("masuk siniii");
+                onPageChange([...pages.slice(0, pageIndex)]);
+            }
+            decrementPage();
+            setPageNow(pageIndex - 1);
+            toast.success('The chat has been deleted successfully, please select another chat page', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+            console.log(pageIndex);
+        } else {
+            toast.error('You must have at least 1 chat page!', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        }
+    };
+
     const renderPageButton = (pageIndex) => (
-        <div>
+        <div id="group-button">
             <button key={`page-${pageIndex}`} onClick={() => handlePageSelect(pageIndex)}
-            className="hover:bg-gray-300 flex flex-col hover:rounded-lg focus:bg-gray-300 focus:rounded-lg max-h-36 overflow-hidden text-ellipsis w-full">
-                <h3 className='font-medium pl-3 pr-3 pb-3 pt-2 text-left overflow-hidden max-h-10 text-ellipsis w-full'>{pages[pageIndex].name || `Page ${pageIndex + 1}`}</h3>
+            className="hover:bg-gray-300 flex hover:rounded-lg focus:bg-gray-300 focus:rounded-lg max-h-36 overflow-hidden text-ellipsis w-full">
+                <h3 className='font-medium pl-3 pr-3 pt-2.5 text-left overflow-hidden break-all max-h-10 text-ellipsis w-full'>{pages[pageIndex].name || `Chat ${pageIndex + 1}`}</h3>
+                <button className="pr-3 pl-2 w-12 h-12" onClick={() => handlePageDelete(pageIndex)}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" id="trash"><path fill="#231F20" d="M10.289 14.211h3.102l1.444 25.439a1 1 0 0 0 .998.943h18.933a1 1 0 0 0 .998-.944l1.421-25.438h3.104a1 1 0 1 0 0-2h-3.741c-.055 0-.103.023-.156.031-.052-.008-.1-.031-.153-.031h-5.246V9.594a1 1 0 0 0-1-1h-9.409a1 1 0 0 0-1 1v2.617h-5.248c-.046 0-.087.021-.132.027-.046-.007-.087-.027-.135-.027H10.29a1 1 0 0 0-.001 2zm11.295-3.617h7.409v1.617h-7.409v-1.617zm13.598 3.617L33.82 38.594H16.778l-1.384-24.383h19.788z"></path><path fill="#231F20" d="M20.337 36.719l.058-.001a.999.999 0 00.941-1.055l-1.052-18.535a1.012 1.012 0 00-1.055-.942.999.999 0 00-.941 1.055l1.052 18.535a1 1 0 00.997.943zM30.147 36.718l.058.001a1 1 0 00.997-.943l1.052-18.535a1 1 0 00-.941-1.055 1.011 1.011 0 00-1.055.942l-1.052 18.535a1 1 0 00.941 1.055zM25.289 36.719a1 1 0 001-1V17.184a1 1 0 10-2 0v18.535a1 1 0 001 1z"></path></svg>
+                </button>
             </button>
             <div className="mt-2 mb-2 h-px bg-slate-300"></div>
         </div>
@@ -84,7 +109,7 @@ function ChatHistory({ pages, onPageChange, incrementPage, setPageNow }) {
                 onClick={handleAddPage}>+ New Chat
             </button>
             <ToastContainer />
-            <div className='h-150 overflow-auto flex flex-col chat-interface w-full'>
+            <div className='h-150 overflow-auto flex flex-col chat-interface w-full' class="button-group">
                 {renderedPages}
             </div>
         </div>
@@ -104,6 +129,10 @@ function Chat(props) {
         setCurrentPage(currentPage + 1);
     };
 
+    const decrementPage = () => {
+        setCurrentPage(currentPage - 1);
+    };
+
     // Function that handles the new response
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -111,8 +140,8 @@ function Chat(props) {
             // Set page element
             console.log(currentPage);
             const currentPagePos = pages[currentPage];
-            console.log(currentPagePos);
-            console.log(currentPagePos.convo[0]);
+            /* console.log(currentPagePos);
+            console.log(currentPagePos.convo[0]); */
             const newcurrentPagePos = {...currentPagePos, convo: [...currentPagePos.convo, { question: newQuestion, answer: '', answered: false }]};
             console.log(newcurrentPagePos);
             const newPages = [...pages.slice(0, currentPage), newcurrentPagePos, ...pages.slice(currentPage + 1)];
@@ -160,9 +189,9 @@ function Chat(props) {
                         <input
                             class="align-left font-medium text-lg focus:outline-none w-128"
                             type="text"
-                            value={pages[currentPage].name || ""}
+                            value={ (pages[currentPage] && pages[currentPage].name) ? (pages[currentPage].name) : ("") }
                             onChange={(event) => handleRenamePage(currentPage, event.target.value)}
-                            placeholder='Click here to rename the page'
+                            placeholder='Click here to rename the chat page'
                         />
                     </div>
                     <div class="align-right py-3">
@@ -176,16 +205,17 @@ function Chat(props) {
                 </div>
                 <div className="h-px bg-slate-200 ml-[-1.5rem] mr-[-1.5rem]"></div>
                 <div className='h-150 overflow-auto flex flex-col chat-interface'>
-                    {pages[currentPage].convo.map((question, index) => (
-                        <div key={index}>
-                            <QuestionBubble key={index} message={question.question} profpics={props.profpics} />
-                            {!question.answered ? (
-                                <div>{handleAnswer(index)}</div>
-                                ) : (
-                                <AnswerBubble message={question.answer} />
-                            )}
-                        </div>
-                    ))}
+                    {(pages[currentPage] && pages[currentPage].convo) ? 
+                        (pages[currentPage].convo.map((question, index) => (
+                            <div key={index}>
+                                <QuestionBubble key={index} message={question.question} profpics={props.profpics} />
+                                {!question.answered ? (
+                                    <div>{handleAnswer(index)}</div>
+                                    ) : (
+                                    <AnswerBubble message={question.answer} />
+                                )}
+                            </div>
+                    ))) : (<></>)}
                     <div ref={bottomRef} />
                 </div>
                 <div className="absolute inset-x-0 bottom-0 mr-6 ml-6 mb-4 flex flex-col justify-center">
@@ -205,7 +235,7 @@ function Chat(props) {
                     </form>
                 </div>
             </div>
-            <ChatHistory pages={pages} onPageChange={setPages} incrementPage={incrementPage} setPageNow={setCurrentPage}/>
+            <ChatHistory pages={pages} onPageChange={setPages} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage}/>
         </div>
     );
 };

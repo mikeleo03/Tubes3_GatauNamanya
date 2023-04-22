@@ -12,18 +12,14 @@ const backgroundStyle = {
 }
 
 const ChatBot = () => {
-
     const { getAccessTokenSilently } = useAuth0();
 
     useEffect(() => {
-
         const fetchData = async () => {
             const token = await getAccessTokenSilently();
             return token
         }
-
         fetchData()
-        
         .then(token => {
 
             fetch("http://localhost:5000", {
