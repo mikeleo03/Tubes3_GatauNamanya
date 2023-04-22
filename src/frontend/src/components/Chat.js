@@ -5,9 +5,10 @@ import ChatHeader from "./ChatHeader";
 
 import send from "../assets/icons/send.png"
 
-function Chat({ pages, setPages, currentPage, setCurrentPage }) {
+function Chat({ pages, setPages, currentPage, setCurrentPage, profpics }) {
     // Handle Users Messages
     const bottomRef = useRef(null);
+    const textareaRef = useRef(null);
     const [newQuestion, setNewQuestion] = useState('');
 
     let ans = "Jawabanmu tidak ada dalam database kami";
@@ -62,6 +63,18 @@ function Chat({ pages, setPages, currentPage, setCurrentPage }) {
         bottomRef.current?.scrollIntoView({behavior: 'smooth'});
     });
 
+    useEffect(() => {
+        textareaRef.current.style.height = "0px";
+        const scrollHeight = textareaRef.current.scrollHeight;
+        textareaRef.current.style.height = scrollHeight + "px";
+    }, [newQuestion]);
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            handleSubmit(event);
+        }
+    };
+
     return (
         <div className="w-5/6 bg-light flex rounded-2xl">
             <div className="w-3/4 relative px-7">
@@ -71,7 +84,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage }) {
                     {(pages[currentPage] && pages[currentPage].convo) ? 
                         (pages[currentPage].convo.map((question, index) => (
                             <div key={index}>
-                                <QuestionBubble key={index} message={question.question} profpics={send} />
+                                <QuestionBubble key={index} message={question.question} profpics={profpics} />
                                 {!question.answered ? (
                                     <div>{handleAnswer(index)}</div>
                                     ) : (
@@ -81,16 +94,18 @@ function Chat({ pages, setPages, currentPage, setCurrentPage }) {
                     ))) : (<></>)}
                     <div ref={bottomRef} />
                 </div>
-                <div className="absolute inset-x-0 bottom-0 mr-6 ml-6 mb-4 flex flex-col justify-center">
+                <div className="absolute inset-x-0 bottom-0 mr-6 ml-6 mb-4 flex flex-col justify-center bg-light">
                     <form onSubmit={handleSubmit}>
-                        <p className="mb-1">Insert your question here</p>
+                        <p className="mb-1 mt-1">Insert your question here</p>
                         <div className='flex'>
-                            <input className="bg-gray-700 h-10 pl-3 text-light rounded-md focus:outline-none w-full" 
+                            <textarea className="bg-gray-700 h-10 pl-3 pr-3 pt-2 pb-2 text-light rounded-md focus:outline-none w-full" 
+                                ref={textareaRef}
                                 onChange={(event) => setNewQuestion(event.target.value)}
+                                onKeyDown={handleKeyDown}
                                 value={newQuestion}
                                 type="text"
                                 placeholder="What are you thinking today?">
-                            </input>
+                            </textarea>
                             <button type="submit" className='ml-1'>
                                 <img src={send} alt="send" className="w-10"></img>
                             </button>
