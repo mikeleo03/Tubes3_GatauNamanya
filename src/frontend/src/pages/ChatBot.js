@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Menu from '../components/Menu';
 import Chat from '../components/Chat';
 import {useAuth0} from '@auth0/auth0-react'
@@ -32,11 +32,14 @@ const ChatBot = () => {
             .then((res) => console.log(res));
         })
     }, [])
+
+    const [pages, setPages] = useState([{ convo: [], starred : false, archieved : false, name : "" }]);
+    const [currentPage, setCurrentPage] = useState(0);
     
     return (
         <div style={backgroundStyle} className="flex lg:p-[3vh]">
             <Menu profpics={profile} />
-            <Chat profpics={profile} />
+            <Chat profpics={profile} pages={pages} setPages={setPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
         </div>
     );
 };

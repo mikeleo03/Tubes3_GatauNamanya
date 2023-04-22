@@ -50,7 +50,7 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
     const handleAddPage = () => {
         console.log(pages.length);
         if (pages.length < PAGE_SIZE) {
-            onPageChange([...pages, { convo : [] }]);
+            onPageChange([...pages, { convo : [], starred : false, archieved : false, name : "" }]);
             incrementPage();
             setPageNow(pages.length);
         } else {
@@ -116,12 +116,10 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
     );
 }
 
-function Chat(props) {
+function Chat({ pages, setPages, currentPage, setCurrentPage }) {
     // Handle Users Messages
     const bottomRef = useRef(null);
     const [newQuestion, setNewQuestion] = useState('');
-    const [pages, setPages] = useState([{ convo: [] }]);
-    const [currentPage, setCurrentPage] = useState(0);
 
     let ans = "Jawabanmu tidak ada dalam database kami";
 
@@ -142,7 +140,7 @@ function Chat(props) {
             const currentPagePos = pages[currentPage];
             /* console.log(currentPagePos);
             console.log(currentPagePos.convo[0]); */
-            const newcurrentPagePos = {...currentPagePos, convo: [...currentPagePos.convo, { question: newQuestion, answer: '', answered: false }]};
+            const newcurrentPagePos = {...currentPagePos, convo: [...currentPagePos.convo, { question: newQuestion, answer: '', answered: false }] };
             console.log(newcurrentPagePos);
             const newPages = [...pages.slice(0, currentPage), newcurrentPagePos, ...pages.slice(currentPage + 1)];
             console.log(newPages);
@@ -181,6 +179,20 @@ function Chat(props) {
         bottomRef.current?.scrollIntoView({behavior: 'smooth'});
     });
 
+    const handleArchieved = () => {
+        const newPages = [...pages];
+        newPages[currentPage].archieved = true;
+        setPages(newPages);
+    }
+
+    const handleStarred = () => {
+        const newPages = [...pages];
+        console.log(pages);
+        console.log(currentPage);
+        newPages[currentPage].starred = true;
+        setPages(newPages);
+    }
+
     return (
         <div className="w-5/6 bg-light flex rounded-2xl">
             <div className="w-3/4 relative px-7">
@@ -195,10 +207,10 @@ function Chat(props) {
                         />
                     </div>
                     <div class="align-right py-3">
-                        <button class="mr-5 py-1">
+                        <button class="mr-5 py-1" onClick={handleStarred}>
                             <img src={fav} alt="fav" className="h-7"></img>
                         </button>
-                        <button class="py-1">
+                        <button class="py-1" onClick={handleArchieved}>
                             <img src={save} alt="Save" className="h-7"></img>
                         </button>
                     </div>
@@ -208,7 +220,7 @@ function Chat(props) {
                     {(pages[currentPage] && pages[currentPage].convo) ? 
                         (pages[currentPage].convo.map((question, index) => (
                             <div key={index}>
-                                <QuestionBubble key={index} message={question.question} profpics={props.profpics} />
+                                <QuestionBubble key={index} message={question.question} profpics={send} />
                                 {!question.answered ? (
                                     <div>{handleAnswer(index)}</div>
                                     ) : (
