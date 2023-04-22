@@ -11,10 +11,10 @@ function App() {
         <div className="container">
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<PrivateRoute/>}>
-                        <Route path="/" element={<ChatBot />} />
-                        <Route path="*" element={<ChatBot />} />
-                    </Route>
+                    {/* <Route path="/" element={<PrivateRoute/>}> */}
+                    <Route path="/" element={<ChatBot />} />
+                    <Route path="*" element={<ChatBot />} />
+                    {/* </Route> */}
                 </Routes>
             </BrowserRouter>
         </div>
