@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import bot from "../assets/icons/bot.webp"
 import send from "../assets/icons/send.png"
@@ -42,14 +44,20 @@ const AnswerBubble = ({ message }) => {
     );
 }
 
-// Jumlah halaman
 const PAGE_SIZE = 20;
 
 function ChatHistory({ pages, onPageChange, incrementPage, setPageNow }) {
     const handleAddPage = () => {
-        onPageChange([...pages, { convo : [] }]);
-        incrementPage();
-        setPageNow(pages.length);
+        console.log(pages.length);
+        if (pages.length < PAGE_SIZE) {
+            onPageChange([...pages, { convo : [] }]);
+            incrementPage();
+            setPageNow(pages.length);
+        } else {
+            toast.error('You have excedeed the maximum number of pages!', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        }
     };
 
     const handlePageSelect = (pageIndex) => {
@@ -75,6 +83,7 @@ function ChatHistory({ pages, onPageChange, incrementPage, setPageNow }) {
             <button class="py-2 px-6 mb-3 text-light hover:bg-gray-500 bg-gray-600 rounded-md w-full"
                 onClick={handleAddPage}>+ New Chat
             </button>
+            <ToastContainer />
             <div className='h-150 overflow-auto flex flex-col chat-interface w-full'>
                 {renderedPages}
             </div>
@@ -149,7 +158,7 @@ function Chat(props) {
                 <div className="h-14 flex justify-between">
                     <div className='py-3 w-96'>
                         <input
-                            class="align-left font-medium text-lg focus:border-none w-128"
+                            class="align-left font-medium text-lg focus:outline-none w-128"
                             type="text"
                             value={pages[currentPage].name || ""}
                             onChange={(event) => handleRenamePage(currentPage, event.target.value)}
@@ -183,7 +192,7 @@ function Chat(props) {
                     <form onSubmit={handleSubmit}>
                         <p className="mb-1">Insert your question here</p>
                         <div className='flex'>
-                            <input className="bg-gray-700 h-10 pl-3 text-light rounded-md focus:border-none w-full" 
+                            <input className="bg-gray-700 h-10 pl-3 text-light rounded-md focus:outline-none w-full" 
                                 onChange={(event) => setNewQuestion(event.target.value)}
                                 value={newQuestion}
                                 type="text"
