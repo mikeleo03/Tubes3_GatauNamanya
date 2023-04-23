@@ -76,7 +76,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics }) {
     };
 
     return (
-        <div className="w-5/6 bg-light flex rounded-2xl">
+        <div className="w-full bg-light flex rounded-2xl">
             <div className="w-3/4 relative px-7">
                 <ChatHeader pages={pages} currentPage={currentPage} setPages={setPages}/>
                 <div className="h-px bg-slate-200 ml-[-1.5rem] mr-[-1.5rem]"></div>
@@ -84,7 +84,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics }) {
                     {(pages[currentPage] && pages[currentPage].convo) ? 
                         (pages[currentPage].convo.map((question, index) => (
                             <div key={index}>
-                                <QuestionBubble key={index} message={question.question} profpics={profpics} />
+                                <QuestionBubble idx={index} message={question.question} currentPage={currentPage} pages={pages} setPages={setPages} profpics={profpics} handleKeyDown={handleKeyDown} />
                                 {!question.answered ? (
                                     <div>{handleAnswer(index)}</div>
                                     ) : (
@@ -113,7 +113,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics }) {
                     </form>
                 </div>
             </div>
-            <ChatHistory pages={pages} onPageChange={setPages} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage}/>
+            <ChatHistory pages={pages} onPageChange={setPages} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} profpics={profpics} />
         </div>
     );
 };
