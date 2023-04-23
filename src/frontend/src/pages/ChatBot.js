@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Chat from '../components/Chat';
-import {useAuth0} from '@auth0/auth0-react'
+import { useAuth0 } from '@auth0/auth0-react'
 import profile from "../assets/icons/profile.ico"
 
 const backgroundStyle = {
@@ -21,7 +21,6 @@ const ChatBot = () => {
         }
         fetchData()
         .then(token => {
-
             fetch("http://localhost:5000", {
                 method: 'GET',
                 headers: new Headers({
@@ -31,7 +30,7 @@ const ChatBot = () => {
             .then((res) => res.json())
             .then((res) => console.log(res));
         })
-    }, [])
+    })
 
     const [pages, setPages] = useState([{ convo: [], starred : false, archieved : false, name : "" }]);
     const [currentPage, setCurrentPage] = useState(0);
