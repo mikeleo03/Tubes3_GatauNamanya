@@ -62,7 +62,7 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
     const renderedPages = pages.map((_, index) => renderPageButton(index));
 
     return (
-        <div className="w-1/4 bg-greyish rounded-r-2xl pl-7 pr-7 relative">
+        <div className="w-1/4 bg-greyish rounded-r-2xl pl-7 pr-7 relative hidden md:block">
             <p className="text-lg font-medium pt-5 pb-3">History Chat</p>
             <button class="py-2 px-6 mb-3 text-light hover:bg-gray-500 bg-gray-600 rounded-md w-full"
                 onClick={handleAddPage}>+ New Chat

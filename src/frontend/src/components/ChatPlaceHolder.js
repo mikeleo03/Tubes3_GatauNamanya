@@ -2,7 +2,7 @@ import React from 'react';
 
 const ChatPlaceHolder = () => {
     return (
-        <div className="bg-gray-200 h-full flex justify-center items-center flex-col">
+        <div className="bg-gray-200 md:h-full pt-5 md:pt-0 pb-5 md:pb-0 flex justify-center items-center flex-col">
             <h2 className="text-4xl font-bold mb-8">GatauNamanya :(</h2>
             <div className="flex md:flex-row flex-col">
                 <div className="mr-3 ml-3 w-64">
