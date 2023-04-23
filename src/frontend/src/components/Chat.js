@@ -8,7 +8,7 @@ import ChatPlaceHolder from "./ChatPlaceHolder";
 
 import send from "../assets/icons/send.png"
 
-function Chat({ pages, setPages, currentPage, setCurrentPage, profpics }) {
+function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHistory, setOpenHistory }) {
     // Handle Users Messages
     const bottomRef = useRef(null);
     const textareaRef = useRef(null);
@@ -84,10 +84,10 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics }) {
 
     return (
         <div className="w-full bg-light flex rounded-2xl">
-            <div className="w-3/4 relative px-7">
-                <ChatHeader pages={pages} currentPage={currentPage} setPages={setPages}/>
+            <div className="md:w-3/4 w-full relative px-7 pb-20">
+                <ChatHeader pages={pages} currentPage={currentPage} setPages={setPages} openHistory={openHistory} setOpenHistory={setOpenHistory} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} profpics={profpics} />
                 <div className="h-px bg-slate-200 ml-[-1.5rem] mr-[-1.5rem]"></div>
-                <div className='h-150 overflow-auto flex flex-col'>
+                <div className='h-full md:pb-20 pb-16 overflow-y-auto flex flex-col'>
                     {(pages[currentPage] && pages[currentPage].convo) ? ((pages[currentPage].convo.length > 0) ? 
                         (pages[currentPage].convo.map((question, index) => (
                             <div key={index}>
@@ -108,11 +108,11 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics }) {
                     )}
                         <div ref={bottomRef} class="bottom"/>
                 </div>
-                <div className="absolute inset-x-0 bottom-0 mr-6 ml-6 mb-4 flex flex-col justify-center bg-light">
+                <div className="absolute inset-x-0 bottom-0 mr-6 ml-6 md:mb-4 mb-3 flex flex-col justify-center bg-light md:h-20 h-16">
                     <form onSubmit={handleSubmit}>
-                        <p className="mb-1 mt-1">Insert your question here</p>
+                        <p className="mb-1 mt-1 md:text-md text-sm">Insert your question here</p>
                         <div className='flex'>
-                            <textarea className="bg-gray-700 h-10 pl-3 pr-3 pt-2 pb-2 text-light rounded-md focus:outline-none w-full" 
+                            <textarea className="bg-gray-700 h-10 pl-3 pr-3 pt-2 pb-2 md:text-md text-sm text-light rounded-md focus:outline-none w-full" 
                                 ref={textareaRef}
                                 onChange={(event) => setNewQuestion(event.target.value)}
                                 onKeyDown={handleKeyDown}
@@ -127,7 +127,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics }) {
                     </form>
                 </div>
             </div>
-            <ChatHistory pages={pages} onPageChange={setPages} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} profpics={profpics} />
+            {openHistory && <ChatHistory pages={pages} onPageChange={setPages} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} profpics={profpics} />}
         </div>
     );
 };

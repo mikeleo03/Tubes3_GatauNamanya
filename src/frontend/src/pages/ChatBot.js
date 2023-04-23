@@ -35,10 +35,13 @@ const ChatBot = () => {
 
     const [pages, setPages] = useState([{ convo: [], starred : false, archieved : false, name : "" }]);
     const [currentPage, setCurrentPage] = useState(0);
+    const [openHistory, setOpenHistory] = useState(true);
     
     return (
         <div style={backgroundStyle} className="flex p-[3vh]">
-            <Chat profpics={profile} style={backgroundStyle} className="flex p-[3vh]" pages={pages} setPages={setPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+            <Chat profpics={profile} style={backgroundStyle} className="flex p-[3vh]" 
+            pages={pages} setPages={setPages} currentPage={currentPage} setCurrentPage={setCurrentPage}
+            openHistory={openHistory} setOpenHistory={setOpenHistory} />
         </div>
     );
 };
