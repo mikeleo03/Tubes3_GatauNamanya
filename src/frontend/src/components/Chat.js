@@ -84,7 +84,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHist
 
     return (
         <div className="w-full bg-light flex rounded-2xl">
-            <div className="md:w-3/4 w-full relative px-7 pb-20">
+            <div className={` ${openHistory ? 'lg:w-3/4' : 'lg:w-full'} w-full relative px-7 md:pb-20 pb-16`}>
                 <ChatHeader pages={pages} currentPage={currentPage} setPages={setPages} openHistory={openHistory} setOpenHistory={setOpenHistory} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} profpics={profpics} />
                 <div className="h-px bg-slate-200 ml-[-1.5rem] mr-[-1.5rem]"></div>
                 <div className='h-full md:pb-20 pb-16 overflow-y-auto flex flex-col'>
@@ -108,11 +108,11 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHist
                     )}
                         <div ref={bottomRef} class="bottom"/>
                 </div>
-                <div className="absolute inset-x-0 bottom-0 mr-6 ml-6 md:mb-4 mb-3 flex flex-col justify-center bg-light md:h-20 h-16">
+                <div className="absolute inset-x-0 bottom-0 mr-6 ml-6 md:mb-4 flex flex-col justify-center bg-light md:pb-0 pb-3">
                     <form onSubmit={handleSubmit}>
-                        <p className="mb-1 mt-1 md:text-md text-sm">Insert your question here</p>
+                        <p className="mb-1 mt-2 md:text-base text-sm md:mt-1">Insert your question here</p>
                         <div className='flex'>
-                            <textarea className="bg-gray-700 h-10 pl-3 pr-3 pt-2 pb-2 md:text-md text-sm text-light rounded-md focus:outline-none w-full" 
+                            <textarea className="bg-gray-700 h-10 pl-3 pr-3 pt-2 pb-2.5 md:text-base text-sm text-light rounded-md focus:outline-none w-full" 
                                 ref={textareaRef}
                                 onChange={(event) => setNewQuestion(event.target.value)}
                                 onKeyDown={handleKeyDown}
