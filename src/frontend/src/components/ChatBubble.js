@@ -23,7 +23,7 @@ const QuestionBubble = ({ message, /* pages, setPages, currentPage, */ profpics,
         <div class='current-bubble'>
             <div className="bg-gray-100 mt-4 md:py-6 py-4 md:px-8 px-6 md:pb-16 pb-12 w-full rounded-lg border border-slate-300" style={{float: 'right'}}>
                 {!updateQuestion ? (
-                    <div className='md:text-lg text-md w-full break-words'>
+                    <div className='md:text-lg text-base w-full break-words'>
                         {message}
                     </div>) : (
                     <textarea className="focus:outline-none w-full text-lg" 
@@ -37,7 +37,7 @@ const QuestionBubble = ({ message, /* pages, setPages, currentPage, */ profpics,
                 <img src={profpics} alt="Profile" className="md:h-16 h-12"></img>
             </div>
             <div>
-                <button class="md:py-1 py-0.5 px-2 md:mt-2.5 mt-1 mb-1 md:text-md text-sm text-light hover:bg-gray-400 bg-gray-500 rounded-md" onClick={handleSetQ}>Edit</button>
+                <button class="md:py-1 py-0.5 px-2 md:mt-2.5 mt-1 mb-1 md:text-base text-sm text-light hover:bg-gray-400 bg-gray-500 rounded-md" onClick={handleSetQ}>Edit</button>
             </div>
         </div>
     );
@@ -55,7 +55,7 @@ const AnswerBubble = ({ message }) => {
     return (
         <div class='current-bubble'>
             <div className="bg-gray-300 mt-4 md:py-6 py-4 md:px-8 px-6 md:pb-16 pb-12 w-full rounded-lg" style={{float: 'left'}}>
-                <div className='md:text-lg text-md w-full break-words'>
+                <div className='md:text-lg text-base w-full break-words'>
                     {message}
                 </div>
             </div>
@@ -63,8 +63,8 @@ const AnswerBubble = ({ message }) => {
                 <img src={bot} alt="Bot" className="md:h-16 h-12"></img>
             </div>
             <div style={{float: 'right'}} className='mt-1.5'>
-                <button class="md:py-1 py-0.5 px-2 md:mt-2.5 mt-1 mb-1 md:text-md text-sm mr-3 text-light hover:bg-gray-400 bg-gray-500 rounded-md">Regenerate Response</button>
-                <button class="md:py-1 py-0.5 px-2 md:mt-2.5 mt-1 mb-1 md:text-md text-sm text-light hover:bg-gray-400 bg-gray-500 rounded-md" onClick={handleCopy} >Copy</button>
+                <button class="md:py-1 py-0.5 px-2 md:mt-2.5 mt-1 mb-1 md:text-base text-sm mr-3 text-light hover:bg-gray-400 bg-gray-500 rounded-md">Regenerate Response</button>
+                <button class="md:py-1 py-0.5 px-2 md:mt-2.5 mt-1 mb-1 md:text-base text-sm text-light hover:bg-gray-400 bg-gray-500 rounded-md" onClick={handleCopy} >Copy</button>
                 <ToastContainer />
             </div>
         </div>

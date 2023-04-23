@@ -62,17 +62,17 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
     const renderedPages = pages.map((_, index) => renderPageButton(index));
 
     return (
-        <div className="w-1/4 bg-greyish rounded-r-2xl pl-7 pr-7 relative hidden md:block">
+        <div className="w-1/4 bg-greyish rounded-r-2xl pl-7 pr-7 md:pb-36 pb-16 relative hidden lg:block">
             <p className="text-lg font-medium pt-5 pb-3">History Chat</p>
             <button class="py-2 px-6 mb-3 text-light hover:bg-gray-500 bg-gray-600 rounded-md w-full"
                 onClick={handleAddPage}>+ New Chat
             </button>
             <ToastContainer />
-            <div className='h-96 overflow-auto flex flex-col chat-interface w-full'>
+            <div className='h-full md:pb-36 pb-16 overflow-y-auto flex flex-col w-full'>
                 {renderedPages}
             </div>
-            <div className="absolute inset-x-0 bottom-0 mr-6 ml-6">
-                <p className="text-lg font-medium pt-5 pb-3">Algorithm</p>
+            <div className="absolute inset-x-0 bottom-0 mr-6 ml-6 bg-greyish">
+                <p className="text-lg font-medium pt-1.5 pb-3">Algorithm</p>
                 <div className='flex flex-row space-x-4 mb-2'>
                     <MenuButton label="Knuth–Morris–Pratt"/>
                     <MenuButton label="Boyer–Moore"/>
