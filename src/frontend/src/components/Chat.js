@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { QuestionBubble, AnswerBubble } from "./ChatBubble";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ChatHistory from "./ChatHistory";
 import ChatHeader from "./ChatHeader";
