@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ChatHistory from "./ChatHistory";
 import ChatHeader from "./ChatHeader";
+import ChatPlaceHolder from "./ChatPlaceHolder";
 
 import send from "../assets/icons/send.png"
 
@@ -98,23 +99,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics }) {
                                 )}
                             </div>
                         ))) : (
-                        <div className="bg-gray-300 h-full flex justify-center items-center flex flex-col">
-                            <h2 className="text-4xl font-bold mb-8">GatauNamanya</h2>
-                            <div className="flex md:flex-row flex-col">
-                                <div className="bg-white p-4 rounded-lg mr-3 ml-3">
-                                    <h2 className="text-lg font-bold mb-2">Popup Content</h2>
-                                    <p className="text-gray-700">This is the content for the popup.</p>
-                                </div>
-                                <div className="bg-white p-4 rounded-lg mr-3 ml-3">
-                                    <h2 className="text-lg font-bold mb-2">Popup Content</h2>
-                                    <p className="text-gray-700">This is the content for the popup.</p>
-                                </div>
-                                <div className="bg-white p-4 rounded-lg mr-3 ml-3">
-                                    <h2 className="text-lg font-bold mb-2">Popup Content</h2>
-                                    <p className="text-gray-700">This is the content for the popup.</p>
-                                </div>
-                            </div>
-                        </div>
+                        <ChatPlaceHolder />
                     )) : (
                         <div className="pt-5 justify-center items-center h-full flex flex-col">
                             <h2 className="text-2xl font-bold mb-2">Page has been deleted!</h2>
