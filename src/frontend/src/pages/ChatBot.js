@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Menu from '../components/Menu';
 import Chat from '../components/Chat';
 import {useAuth0} from '@auth0/auth0-react'
 import profile from "../assets/icons/profile.ico"
@@ -9,6 +8,7 @@ const backgroundStyle = {
     height: "auto",
     width: "100vw",
     minHeight: "100vh",
+    maxHeight: "100vh",
 }
 
 const ChatBot = () => {
@@ -37,9 +37,8 @@ const ChatBot = () => {
     const [currentPage, setCurrentPage] = useState(0);
     
     return (
-        <div style={backgroundStyle} className="flex lg:p-[3vh]">
-            <Menu profpics={profile} />
-            <Chat profpics={profile} pages={pages} setPages={setPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+        <div style={backgroundStyle} className="flex p-[3vh]">
+            <Chat profpics={profile} style={backgroundStyle} className="flex p-[3vh]" pages={pages} setPages={setPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
         </div>
     );
 };

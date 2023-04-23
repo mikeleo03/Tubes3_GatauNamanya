@@ -2,9 +2,11 @@ import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { MenuButton, Profile } from './Additional';
+
 const PAGE_SIZE = 20;
 
-function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPageNow }) {
+function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPageNow, profpics }) {
     const handleAddPage = () => {
         console.log(pages.length);
         if (pages.length < PAGE_SIZE) {
@@ -67,8 +69,16 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
                 onClick={handleAddPage}>+ New Chat
             </button>
             <ToastContainer />
-            <div className='h-150 overflow-auto flex flex-col chat-interface w-full'>
+            <div className='h-96 overflow-auto flex flex-col chat-interface w-full'>
                 {renderedPages}
+            </div>
+            <div className="absolute inset-x-0 bottom-0 mr-6 ml-6">
+                <p className="text-lg font-medium pt-5 pb-3">Algorithm</p>
+                <div className='flex flex-row space-x-4 mb-2'>
+                    <MenuButton label="Knuth–Morris–Pratt"/>
+                    <MenuButton label="Boyer–Moore"/>
+                </div>
+                <Profile profpics={profpics} name="Michael Leon" email="leonmichael463@gmail.com"/>
             </div>
         </div>
     );
