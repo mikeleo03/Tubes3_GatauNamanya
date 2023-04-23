@@ -35,8 +35,7 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
                 onPageChange([...pages.slice(0, pageIndex)]);
             }
             decrementPage();
-            setPageNow(pageIndex - 1);
-            toast.success('The chat has been deleted successfully, please select another chat page', {
+            toast.success('The chat has been deleted successfully', {
                 position: toast.POSITION.TOP_RIGHT
             });
             console.log(pageIndex);
