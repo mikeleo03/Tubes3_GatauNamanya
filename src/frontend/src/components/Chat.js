@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { QuestionBubble, AnswerBubble } from "./ChatBubble";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ChatHistory from "./ChatHistory";
 import ChatHeader from "./ChatHeader";
 
@@ -24,21 +26,25 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics }) {
     // Function that handles the new response
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (newQuestion !== "") {
-            // Set page element
-            console.log(currentPage);
-            const currentPagePos = pages[currentPage];
-            /* console.log(currentPagePos);
-            console.log(currentPagePos.convo[0]); */
-            const newcurrentPagePos = {...currentPagePos, convo: [...currentPagePos.convo, { question: newQuestion, answer: '', answered: false }] };
-            console.log(newcurrentPagePos);
-            const newPages = [...pages.slice(0, currentPage), newcurrentPagePos, ...pages.slice(currentPage + 1)];
-            console.log(newPages);
+        const currentPagePos = pages[currentPage];
+        if (currentPagePos && currentPagePos.convo) {
+            if (newQuestion !== "") {
+                // Set page element
+                console.log(currentPage);
+                const newcurrentPagePos = {...currentPagePos, convo: [...currentPagePos.convo, { question: newQuestion, answer: '', answered: false }] };
+                console.log(newcurrentPagePos);
+                const newPages = [...pages.slice(0, currentPage), newcurrentPagePos, ...pages.slice(currentPage + 1)];
+                console.log(newPages);
 
-            // Inget buat consider panjangnya?
-            setPages(newPages);
-            console.log(pages);
-            setNewQuestion('');
+                // Inget buat consider panjangnya?
+                setPages(newPages);
+                console.log(pages);
+                setNewQuestion('');
+            }
+        } else {
+            toast.error("The chat page has been deleted, You can't add any message here!", {
+                position: toast.POSITION.TOP_RIGHT
+            });
         }
     }
 
@@ -80,8 +86,8 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics }) {
             <div className="w-3/4 relative px-7">
                 <ChatHeader pages={pages} currentPage={currentPage} setPages={setPages}/>
                 <div className="h-px bg-slate-200 ml-[-1.5rem] mr-[-1.5rem]"></div>
-                <div className='h-150 overflow-auto flex flex-col chat-interface'>
-                    {(pages[currentPage] && pages[currentPage].convo) ? 
+                <div className='h-150 overflow-auto flex flex-col'>
+                    {(pages[currentPage] && pages[currentPage].convo) ? ((pages[currentPage].convo.length > 0) ? 
                         (pages[currentPage].convo.map((question, index) => (
                             <div key={index}>
                                 <QuestionBubble idx={index} message={question.question} currentPage={currentPage} pages={pages} setPages={setPages} profpics={profpics} handleKeyDown={handleKeyDown} />
@@ -91,8 +97,31 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics }) {
                                     <AnswerBubble message={question.answer} />
                                 )}
                             </div>
-                    ))) : (<></>)}
-                    <div ref={bottomRef} />
+                        ))) : (
+                        <div className="bg-gray-300 h-full flex justify-center items-center flex flex-col">
+                            <h2 className="text-4xl font-bold mb-8">GatauNamanya</h2>
+                            <div className="flex md:flex-row flex-col">
+                                <div className="bg-white p-4 rounded-lg mr-3 ml-3">
+                                    <h2 className="text-lg font-bold mb-2">Popup Content</h2>
+                                    <p className="text-gray-700">This is the content for the popup.</p>
+                                </div>
+                                <div className="bg-white p-4 rounded-lg mr-3 ml-3">
+                                    <h2 className="text-lg font-bold mb-2">Popup Content</h2>
+                                    <p className="text-gray-700">This is the content for the popup.</p>
+                                </div>
+                                <div className="bg-white p-4 rounded-lg mr-3 ml-3">
+                                    <h2 className="text-lg font-bold mb-2">Popup Content</h2>
+                                    <p className="text-gray-700">This is the content for the popup.</p>
+                                </div>
+                            </div>
+                        </div>
+                    )) : (
+                        <div className="pt-5 justify-center items-center h-full flex flex-col">
+                            <h2 className="text-2xl font-bold mb-2">Page has been deleted!</h2>
+                            <p className="text-xl text-gray-700">Please select another chat page</p>
+                        </div>
+                    )}
+                        <div ref={bottomRef} class="bottom"/>
                 </div>
                 <div className="absolute inset-x-0 bottom-0 mr-6 ml-6 mb-4 flex flex-col justify-center bg-light">
                     <form onSubmit={handleSubmit}>
