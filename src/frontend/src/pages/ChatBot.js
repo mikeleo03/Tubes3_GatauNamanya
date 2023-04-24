@@ -37,7 +37,7 @@ const ChatBot = () => {
     const [openHistory, setOpenHistory] = useState(true);
     
     return (
-        <div style={backgroundStyle} className="flex p-[3vh]">
+        <div style={backgroundStyle} className="flex lg:p-[3vh]">
             <Chat profpics={profile} style={backgroundStyle} className="flex p-[3vh]" 
             pages={pages} setPages={setPages} currentPage={currentPage} setCurrentPage={setCurrentPage}
             openHistory={openHistory} setOpenHistory={setOpenHistory} />
