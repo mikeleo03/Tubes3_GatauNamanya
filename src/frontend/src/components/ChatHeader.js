@@ -11,7 +11,7 @@ const ChatHeader = ({ pages, setPages, currentPage, openHistory, setOpenHistory 
         <div className="md:h-14 h-12 py-3 w-full flex space-x-2">
             <div className='flex-item w-full align-left'>
                 <input
-                    class="align-left font-medium md:text-lg focus:outline-none w-full pr-5 md:pr-3"
+                    className="align-left font-medium md:text-lg focus:outline-none w-full pr-5 md:pr-3"
                     type="text"
                     value={ (pages[currentPage] && pages[currentPage].name) ? (pages[currentPage].name) : ("") }
                     onChange={(event) => handleRenamePage(currentPage, event.target.value)}

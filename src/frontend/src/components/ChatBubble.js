@@ -7,14 +7,6 @@ import bot from "../assets/icons/bot.webp"
 const QuestionBubble = ({ message, /* pages, setPages, currentPage, */ profpics, handleKeyDown }) => {
     const [updateQuestion, setUpdateQuestion] = useState(false);
 
-    /* const handleUpdateQ = (newQuestion) => {
-        const currentPagePos = pages[currentPage];
-        const newcurrentPagePos = [...pages[currentPage].convo.slice(0, idx), { question: newQuestion, answer: '', answered: false }, ...pages[currentPage].convo.slice(idx + 1)];
-        setPages([...pages.slice(0, currentPage), newcurrentPagePos, ...pages.slice(currentPage + 1)]);
-        console.log(newQuestion);
-        message += newQuestion;
-    } */
-
     const handleSetQ = () => {
         setUpdateQuestion(!updateQuestion);
     };
