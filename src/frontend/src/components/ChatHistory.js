@@ -6,11 +6,11 @@ import { MenuButton, Profile } from './Additional';
 
 const PAGE_SIZE = 20;
 
-function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPageNow, profpics }) {
+function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPageNow, profpics, isKMP, setIsKMP }) {
     const handleAddPage = () => {
         console.log(pages.length);
         if (pages.length < PAGE_SIZE) {
-            onPageChange([...pages, { convo : [], starred : false, archieved : false, name : "" }]);
+            onPageChange([...pages, { convo : [], name : "" }]);
             incrementPage();
             setPageNow(pages.length);
         } else {
@@ -27,28 +27,36 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
 
     const handlePageDelete = (pageIndex) => {
         console.log(pageIndex);
-        if (pages.length > 1) {
-            if (pages.slice(pageIndex + 1).length !== 0) {
-                onPageChange([...pages.slice(0, pageIndex), ...pages.slice(pageIndex + 1)]);
-            } else {
-                console.log("masuk siniii");
-                onPageChange([...pages.slice(0, pageIndex)]);
-            }
-            decrementPage();
-            toast.success('The chat has been deleted successfully', {
-                position: toast.POSITION.TOP_RIGHT
-            });
-            console.log(pageIndex);
+        if (pages.slice(pageIndex + 1).length !== 0) {
+            onPageChange([...pages.slice(0, pageIndex), ...pages.slice(pageIndex + 1)]);
         } else {
-            toast.error('You must have at least 1 chat page!', {
-                position: toast.POSITION.TOP_RIGHT
-            });
+            console.log("masuk siniii");
+            onPageChange([...pages.slice(0, pageIndex)]);
         }
+        decrementPage();
+        toast.success('The chat has been deleted successfully', {
+            position: toast.POSITION.TOP_RIGHT
+        });
+        console.log(pageIndex);
     };
 
+    const handleKMP = () => {
+        setIsKMP(true);
+        toast.success('Algoritm is changed into Knuth–Morris–Pratt', {
+            position: toast.POSITION.TOP_RIGHT
+        });
+    }
+
+    const handleBM = () => {
+        setIsKMP(false);
+        toast.success('Algoritm is changed into Boyer–Moore', {
+            position: toast.POSITION.TOP_RIGHT
+        });
+    }
+
     const renderPageButton = (pageIndex) => (
-        <div>
-            <button key={`page-${pageIndex}`} onClick={() => handlePageSelect(pageIndex)}
+        <div key={pageIndex}>
+            <button onClick={() => handlePageSelect(pageIndex)}
             className="hover:bg-gray-300 flex hover:rounded-lg focus:bg-gray-300 focus:rounded-lg h-12 overflow-hidden text-ellipsis w-full">
                 <h3 className='font-medium pl-3 pr-3 pt-2.5 text-left overflow-hidden break-all h-10 text-ellipsis w-full'>{pages[pageIndex].name || `Chat ${pageIndex + 1}`}</h3>
                 <button className="pr-3 pl-2 w-12 h-12" onClick={() => handlePageDelete(pageIndex)}>
@@ -64,7 +72,7 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
     return (
         <div className="w-1/4 bg-greyish rounded-r-2xl pl-7 pr-7 md:pb-36 pb-16 relative hidden lg:block">
             <p className="text-lg font-medium pt-5 pb-3">History Chat</p>
-            <button class="py-2 px-6 mb-3 text-light hover:bg-gray-500 bg-gray-600 rounded-md w-full"
+            <button className="py-2 px-6 mb-3 text-light hover:bg-gray-500 bg-gray-600 rounded-md w-full"
                 onClick={handleAddPage}>+ New Chat
             </button>
             <ToastContainer />
@@ -74,8 +82,8 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
             <div className="absolute inset-x-0 bottom-0 mr-6 ml-6 bg-greyish">
                 <p className="text-lg font-medium pt-1.5 pb-3">Algorithm</p>
                 <div className='flex flex-row space-x-4 mb-2'>
-                    <MenuButton label="Knuth–Morris–Pratt"/>
-                    <MenuButton label="Boyer–Moore"/>
+                    <MenuButton label="Knuth–Morris–Pratt" onClick={handleKMP}/>
+                    <MenuButton label="Boyer–Moore" onClick={handleBM}/>
                 </div>
                 <Profile profpics={profpics} name="Michael Leon" email="leonmichael463@gmail.com"/>
             </div>
