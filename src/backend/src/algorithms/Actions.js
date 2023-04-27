@@ -4,7 +4,7 @@ import Calculate from "../algorithms/Calculate.js";
 
 const days = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 
-async function action(text) {
+async function action(text, algorithm) {
     let type = Regex(text);
     let q,a = "";
     switch (type) {
@@ -18,15 +18,15 @@ async function action(text) {
             text = text.replace(/(tambahkan|tambah) pertanyaan /i, "").replace(/dengan jawaban /i, ",").trim().split(",");
             q = text[0].toLowerCase().trim();
             a = text[1].trim();
-            await Database.save_question(q,a);
+            await Database.save_question(q,a,algorithm);
             return "Pertanyaan " + q + " ditambahkan dengan jawaban " + a;
         case "delete" :
             text = text.replace(/hapus pertanyaan /i, "").trim();
             q = text.toLowerCase();
-            a = await Database.delete_question(q);
+            a = await Database.delete_question(q,algorithm);
             return a;
         default :
-            a = await Database.get_answer(text.toLowerCase());
+            a = await Database.get_answer(text.toLowerCase(),algorithm);
             return a;
     }
 }
