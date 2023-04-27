@@ -93,4 +93,4 @@ function calculate(equation) {
     return operands[0];
 }
 
-exports.calculate = calculate;
+export default calculate;

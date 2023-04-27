@@ -8,9 +8,17 @@
  * 
  */
 const getAnswer = ({ question, algorithm }) => {
-    let answer = "Jawabanmu tidak ada dalam database kami";
-
-    return answer;
+    fetch("http://localhost:5000/answer", {
+    method: "GET",
+    body: JSON.stringify({
+        question : "haha"
+    }),
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    })
+    .then((response) => response.json())
+    .then((json) => console.log(json));
 };
 
 /**

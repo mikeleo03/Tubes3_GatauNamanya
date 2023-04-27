@@ -1,11 +1,11 @@
-const Database = require("../Database");
-const Regex = require("./Regex");
-const Calculate = require("./Calculate");
+import Database from "../Database.js";
+import Regex from "../algorithms/Regex.js";
+import Calculate from "../algorithms/Calculate.js";
 
 const days = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 
 async function action(text) {
-    type = Regex.identify_statement_type(text);
+    let type = Regex(text);
     let q,a = "";
     switch (type) {
         case "date" :
@@ -13,7 +13,7 @@ async function action(text) {
             let d = new Date(split_date[1] + "/" + split_date[0] + "/" + split_date[2]);
             return days[d.getDay()];
         case "calculator" :
-            return Calculate.calculate(text);
+            return Calculate(text);
         case "add" :
             text = text.replace(/(tambahkan|tambah) pertanyaan /i, "").replace(/dengan jawaban /i, ",").trim().split(",");
             q = text[0].toLowerCase().trim();
@@ -31,4 +31,4 @@ async function action(text) {
     }
 }
 
-exports.action = action;
+export default action;
