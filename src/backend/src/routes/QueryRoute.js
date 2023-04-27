@@ -17,10 +17,10 @@ router.use(express.json());
 
 router.get('/answer', async (req,res) => {
     
-    let answer = await action(req.body.question);
+    let answer = await action(req.body.question, req.body.algorithm);
     console.log(answer);
     res.json(answer);
-    
+
 })
 
 export default router;
