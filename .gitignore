@@ -350,6 +350,5 @@ node_modules/whatwg-url/package.json
 node_modules/whatwg-url/README.md
 node_modules/whatwg-url/webidl2js-wrapper.js
 package-lock.json
-package.json
 src/frontend/package-lock.json
 src/frontend/package.json
