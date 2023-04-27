@@ -50,4 +50,4 @@ function booyer_moore(text,pattern) {
     return -1;
 }
 
-exports.booyer_moore = booyer_moore;
+export default booyer_moore;

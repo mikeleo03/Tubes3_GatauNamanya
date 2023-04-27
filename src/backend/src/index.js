@@ -1,7 +1,6 @@
 import express, { json } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import homeRouter from './routes/HomeRoute.js';
 import queryRouter from './routes/QueryRoute.js'
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
@@ -37,18 +36,18 @@ app.use(bodyParser.json());
 
 // UNSECURE API
 // app.use('/', homeRouter)
-// app.use('/queries', queryRouter)
+app.use('/', queryRouter)
 
 // SECURE API
-app.use('/', checkJwt, homeRouter)
-app.use('/queries', checkJwt, queryRouter)
+// app.use('/', checkJwt, homeRouter)
+// app.use('/queries', checkJwt, queryRouter)
 
-app.use((err, req, res, next) => {  
-    if (err.name === 'UnauthorizedError') {
-        res.status(401).json({"error" : err.name + ": " + err.message});
-        console.log({"error" : err.name + ": " + err.message})
-    }
-})
+// app.use((err, req, res, next) => {  
+//     if (err.name === 'UnauthorizedError') {
+//         res.status(401).json({"error" : err.name + ": " + err.message});
+//         console.log({"error" : err.name + ": " + err.message})
+//     }
+// })
 
 //Connecting to DB
 read_env()

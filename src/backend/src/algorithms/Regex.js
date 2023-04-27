@@ -6,7 +6,7 @@ const type_regex = {
 }
 
 function identify_statement_type(text) {
-    for (type in type_regex) {
+    for (let type in type_regex) {
         if (type_regex[type].test(text)) {
             return type;
         }
@@ -14,4 +14,4 @@ function identify_statement_type(text) {
     return "question";
 }
 
-exports.identify_statement_type = identify_statement_type;
+export default identify_statement_type;

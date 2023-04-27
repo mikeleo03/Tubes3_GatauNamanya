@@ -1,20 +1,50 @@
 import mongoose from 'mongoose'
 
-const PostSchema = mongoose.Schema({
+const QuestionSchema = new mongoose.Schema({
 
-    // query : {
-    //     type : String,
-    //     require : true,
-    //     unique : false,
-    // },
+    question : {
+        type : String,
+        require : true,
+        unique : true,
+    },
 
-    // answer : {
-    //     type : String,
-    //     require : true,
-    //     unique : false,
-    // },
+    answer : {
+        type : String,
+        require : true,
+        unique : false,
+    },
 
-})
+});
+
+const HistorySchema = new mongoose.Schema({
+
+    user_id : {
+        type : String,
+        require : true,
+        unique : true,
+    },
+
+    question : {
+        type : String,
+        require : true,
+        unique : false,
+    },
+
+    answer : {
+        type : String,
+        require : true,
+        unique : false,
+    },
+
+    date_time : {
+        type : Date,
+        default : Date.now(),
+        unique : false,
+    },
+
+});
 
 
-export default mongoose.model('queries', PostSchema) // sesuaikan nama model di dbnya [sementara namanya 'queries']
+const QA = mongoose.model('quest_ans', QuestionSchema);
+const History = mongoose.model('history', HistorySchema);
+export default { QA, History };
