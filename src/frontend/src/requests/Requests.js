@@ -45,13 +45,9 @@ const getAnswer = ({ token, question, algorithm }) => {
  */
 const getPages = ({ token, id }) => {
 
-    fetch(url + "/histories", {
+    fetch(url + `/histories/${id}`, {
         method: "GET",
-        body: JSON.stringify({
-            userId: id,
-        }),
         headers: {
-            "Content-type": "application/json; charset=UTF-8",
             'Authorization': `Bearer ${token}`,
         }
         })
@@ -76,9 +72,10 @@ const getPages = ({ token, id }) => {
  * 
  */
 const storeData = ({ token, id, pages }) => {
-    fetch(url + `/histories/${id}`, {
+    fetch(url + `/histories`, {
         method: "POST",
         body: JSON.stringify({
+            user_id: id,
             pages: pages
         }),
         headers: {
