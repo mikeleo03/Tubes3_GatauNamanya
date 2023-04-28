@@ -56,7 +56,20 @@ async function get_answer(q, algorithm) {
     let answer = await models.QA.findOne({_id : id});
     return answer.answer;
   } else {
-    return false;
+    let response = "Pertanyaan tersebut tidak ditemukan di database."
+    let similar_questions = [];
+    for await (const doc of models.QA.find()) {
+      if (LCS(q, doc.question) >= q.length * 0.4)  {
+        similar_questions.push(doc.question);
+      }
+    }
+    if (similar_questions.length > 0) {
+      response += " Apa maksud anda :\n";
+      for (let i=0; i<similar_questions.length; i++) {
+        response += (i+1) + ". " + similar_questions[i] + "\n";
+      }
+    }
+    return response;
   }
 }
 
