@@ -1,26 +1,27 @@
 import express, { response } from 'express';
-import action from "../algorithms/Actions.js";
+import getAnswer from "../algorithms/RegexParser.js";
 
 const router = express.Router();
 router.use(express.json());
 
-//Render Home
-
-// router.get('/', (req, res) => {
-
-//     Query.find()
-//     .then(queries => {
-//         res.json({data : queries})})
-//     .catch(err => {res.status(500).send({message : err.message})})
-
-// })
 
 router.get('/answer', async (req,res) => {
     
-    let answer = await action(req.body.question, req.body.algorithm);
-    console.log(answer);
-    res.json(answer);
+    getAnswer(req.body.question, req.body.algorithm)
 
+    .then(answer => {
+        res.status(200).json({
+            message: null,
+            data: answer
+        })
+    })
+    
+    .catch(err => {
+        res.status(500).json({
+            message: err.message,
+            data: null
+        })
+    })
 })
 
 export default router;
