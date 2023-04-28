@@ -1,7 +1,8 @@
-import express, { json } from 'express';
+import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import queryRouter from './routes/QueryRoute.js'
+import historyRouter from './routes/HistoryRoute.js'
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import checkJwt from './authz/check-jwt.js';
@@ -38,8 +39,8 @@ app.use(bodyParser.json());
 // app.use('/', queryRouter)
 
 // SECURE API
-app.use('/', checkJwt, homeRouter)
 app.use('/queries', checkJwt, queryRouter)
+app.use('/histories', checkJwt, historyRouter)
 
 // app.use((err, req, res, next) => {  
 //     if (err.name === 'UnauthorizedError') {
