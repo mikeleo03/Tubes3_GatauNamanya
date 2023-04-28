@@ -55,12 +55,12 @@ function calculate(equation) {
                 operands.push(Number(curr_operand));
                 curr_operand = "";
             }
-            do {
+            while(operators[operators.length-1] != '(') {
                 let success = process(operands,operators);
                 if (success == -1) {
-                    return "Not valid";
+                    return "Sintaks persamaan tidak sesuai";
                 }
-            } while(operators[operators.length-1] != '(');
+            }
             operators.pop();
         }
         else if (c in precedence) { // Operator
@@ -71,7 +71,7 @@ function calculate(equation) {
             if (operators.length != 0 && operators[operators.length-1] != '(' && precedence[c] < precedence[operators[operators.length-1]]) { // Jika presendensi operator sekarang < operator sebelumnya
                 let success = process(operands,operators);
                 if (success == -1) {
-                    return "Not valid";
+                    return "Sintaks persamaan tidak sesuai";
                 }
             } 
             operators.push(c);
@@ -87,7 +87,7 @@ function calculate(equation) {
     while (operators.length > 0) {
         let success = process(operands,operators);
         if (success == -1) {
-            return "Not valid";
+            return "Sintaks persamaan tidak sesuai";
         }
     }
     return operands[0];

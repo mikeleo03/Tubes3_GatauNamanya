@@ -32,18 +32,22 @@ async function delete_question(q, algorithm) {
   let id = await find_question(q, algorithm);
   if (id != -1) {
     await models.QA.deleteOne({_id : id});
-    return 0;
+    return "Pertanyaan " + q + " telah dihapus";
   } else {
-    return -1;
+    return "Tidak ada pertanyaan " + q + " pada database";
   }
 }
 
 async function save_question(q,a,algorithm) {
-  await delete_question(q, algorithm);
+  let found = await delete_question(q, algorithm);
   const newEntry = await models.QA.create({
     question : q,
     answer : a,
   });
+  if (found === "Pertanyaan " + q + " telah dihapus")
+    return "Pertanyaan " + q + " sudah ada. Jawaban diupdate ke " + a;
+  else 
+    return "Pertanyaan " + q + " telah ditambah";
 }
 
 async function get_answer(q, algorithm) {
@@ -52,7 +56,7 @@ async function get_answer(q, algorithm) {
     let answer = await models.QA.findOne({_id : id});
     return answer.answer;
   } else {
-    return -1;
+    return false;
   }
 }
 
