@@ -9,17 +9,18 @@ async function action(text, algorithm) {
     let q,a = "";
     switch (type) {
         case "date" :
-            let split_date = text.split("/");
+            let split_date = text.replace(/\s*((hari)?\s*(apa)?)?\s*/i, "").split("/");
+            split_date[2] = split_date[2].substring(0,4);
             let d = new Date(split_date[1] + "/" + split_date[0] + "/" + split_date[2]);
-            return days[d.getDay()];
+            return "Hari " + days[d.getDay()];
         case "calculator" :
             return Calculate(text);
         case "add" :
             text = text.replace(/(tambahkan|tambah) pertanyaan /i, "").replace(/dengan jawaban /i, ",").trim().split(",");
             q = text[0].toLowerCase().trim();
             a = text[1].trim();
-            await Database.save_question(q,a,algorithm);
-            return "Pertanyaan " + q + " ditambahkan dengan jawaban " + a;
+            let res = await Database.save_question(q,a,algorithm);
+            return res;
         case "delete" :
             text = text.replace(/hapus pertanyaan /i, "").trim();
             q = text.toLowerCase();
