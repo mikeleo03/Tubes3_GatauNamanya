@@ -79,7 +79,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHist
 
     return (
         <div className="w-full bg-light flex lg:rounded-2xl">
-            <div className={` ${openHistory ? 'lg:w-3/4' : 'lg:w-full'} w-full relative px-7 md:pb-20 pb-16`}>
+            <div className={` ${openHistory ? 'lg:w-3/4' : 'lg:w-full'} ${openHistory ? 'w-0' : 'w-full'} relative lg:px-7 md:pb-20 pb-16`}>
                 <ChatHeader pages={pages} currentPage={currentPage} setPages={setPages} openHistory={openHistory} setOpenHistory={setOpenHistory} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} profpics={profpics} />
                 <div className="h-px bg-slate-200 ml-[-1.5rem] mr-[-1.5rem]"></div>
                 <div className='h-full md:pb-20 pb-16 overflow-y-auto flex flex-col'>
@@ -122,7 +122,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHist
                     </form>
                 </div>
             </div>
-            {openHistory && <ChatHistory pages={pages} onPageChange={setPages} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} profpics={profpics} isKMP={isKMP} setIsKMP={setIsKMP} />}
+            {openHistory && <ChatHistory pages={pages} onPageChange={setPages} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} profpics={profpics} isKMP={isKMP} setIsKMP={setIsKMP} openHistory={openHistory} />}
         </div>
     );
 };
