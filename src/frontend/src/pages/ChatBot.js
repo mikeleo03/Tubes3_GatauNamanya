@@ -8,8 +8,8 @@ const backgroundStyle = {
     backgroundColor : "#151718",
     height: "auto",
     width: "100vw",
-    minHeight: "100dvh",
-    maxHeight: "100dvh",
+    minHeight: "100vh",
+    maxHeight: "100vh",
 }
 
 const ChatBot = () => {
