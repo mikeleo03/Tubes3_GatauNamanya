@@ -7,7 +7,7 @@ import ChatHeader from "./ChatHeader";
 import ChatPlaceHolder from "./ChatPlaceHolder";
 import { getAnswer } from "../requests/Requests";
 
-import send from "../assets/icons/send.png"
+import send from "../assets/icons/send.webp"
 
 function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHistory, setOpenHistory }) {
     // Handle Users Messages
