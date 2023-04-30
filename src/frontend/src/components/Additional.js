@@ -2,7 +2,7 @@ import React from 'react';
 
 function MenuButton(props) {
     return (
-        <button onClick={props.onClick} class="flex-auto py-2 text-light bg-gray-600 focus:bg-gray-500 hover:bg-gray-500 rounded-md my-1">
+        <button onClick={props.onClick} className="flex-auto py-2 text-light bg-gray-600 focus:bg-gray-500 hover:bg-gray-500 rounded-md my-1">
             <p className='pl-3 pr-3 md:text-base text-sm'>{props.label}</p>
         </button>
     );
