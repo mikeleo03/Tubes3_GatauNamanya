@@ -6,7 +6,7 @@ import { MenuButton, Profile } from './Additional';
 
 const PAGE_SIZE = 20;
 
-function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPageNow, profpics, isKMP, setIsKMP, openHistory }) {
+function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPageNow, profpics, isKMP, setIsKMP, openHistory, setOpenHistory }) {
     const handleAddPage = () => {
         console.log(pages.length);
         if (pages.length < PAGE_SIZE) {
@@ -70,8 +70,15 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
     const renderedPages = pages.map((_, index) => renderPageButton(index));
 
     return (
-        <div className= {`lg:w-1/4 ${openHistory ? 'w-full' : 'w-0'} ${openHistory ? 'transition-all duration-300' : 'transition-all duration-300'} z-30 bg-greyish rounded-r-2xl pl-7 pr-7 pb-36 relative lg:block transition-all duration-300`}>
-            <div className="pt-5 pb-3">
+        <div className= {`${openHistory ? 'lg:w-1/4 transition-all duration-300' : 'lg:w-0 transition-all duration-300'} ${openHistory ? 'w-full transition-all duration-300' : 'w-0 transition-all duration-300'} z-30 bg-greyish rounded-r-2xl pl-7 pr-7 pb-36 relative lg:block transition-all duration-300`}>
+            <div className="pt-5 pb-3 flex">
+                <button
+                    onClick={() => setOpenHistory(!openHistory)}
+                    type="button"
+                    className="lg:hidden block w-6 h-6 pt-2 pr-3"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 32 32" viewBox="0 0 32 32" id="cross"><path d="M18.12109,16L31.06055,3.06055c0.58594-0.58545,0.58594-1.53564,0-2.12109c-0.58594-0.58594-1.53516-0.58594-2.12109,0L16,13.87891L3.06055,0.93945c-0.58594-0.58594-1.53516-0.58594-2.12109,0c-0.58594,0.58545-0.58594,1.53564,0,2.12109L13.87891,16L0.93945,28.93945c-0.58594,0.58545-0.58594,1.53564,0,2.12109C1.23242,31.35352,1.61621,31.5,2,31.5s0.76758-0.14648,1.06055-0.43945L16,18.12109l12.93945,12.93945C29.23242,31.35352,29.61621,31.5,30,31.5s0.76758-0.14648,1.06055-0.43945c0.58594-0.58545,0.58594-1.53564,0-2.12109L18.12109,16z"></path></svg>
+                </button>
                 <p className='text-lg font-medium'>History Chat</p>
             </div>
             <button className="py-2 md:px-6 px-4 mb-3 text-light hover:bg-gray-500 bg-gray-600 rounded-md w-full md:text-base text-sm"

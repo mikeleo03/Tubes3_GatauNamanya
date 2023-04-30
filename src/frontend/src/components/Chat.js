@@ -66,7 +66,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHist
     });
 
     useEffect(() => {
-        textareaRef.current.style.height = "0px";
+        textareaRef.current.style.height = "38px";
         const scrollHeight = textareaRef.current.scrollHeight;
         textareaRef.current.style.height = scrollHeight + "px";
     }, [newQuestion]);
@@ -79,7 +79,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHist
 
     return (
         <div className="w-full bg-light flex lg:rounded-2xl">
-            <div className={` ${openHistory ? 'lg:w-3/4' : 'lg:w-full'} ${openHistory ? 'w-0' : 'w-full'} relative lg:px-7 md:pb-20 pb-16`}>
+            <div className={` ${openHistory ? 'lg:block lg:w-3/4 transition-all duration-300' : 'lg:block lg:w-full transition-all duration-300'} ${openHistory ? 'hidden w-full transition-all duration-300' : 'block w-full transition-all duration-300'} relative ${openHistory ? 'px-0 transition-all duration-300' : 'px-7 transition-all duration-300'} lg:px-7 md:pb-20 pb-16`}>
                 <ChatHeader pages={pages} currentPage={currentPage} setPages={setPages} openHistory={openHistory} setOpenHistory={setOpenHistory} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} profpics={profpics} />
                 <div className="h-px bg-slate-200 ml-[-1.5rem] mr-[-1.5rem]"></div>
                 <div className='h-full md:pb-20 pb-16 overflow-y-auto flex flex-col'>
@@ -107,7 +107,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHist
                     <form onSubmit={handleSubmit}>
                         <p className="mb-1 mt-2 md:text-base text-sm md:mt-1">Insert your question here</p>
                         <div className='flex'>
-                            <textarea className="bg-gray-700 h-10 pl-3 pr-3 pt-2 pb-2.5 md:text-base text-sm text-light rounded-md focus:outline-none w-full" 
+                            <textarea className="bg-gray-700 h-10 pl-3 pr-3 pt-2 pb-2.5 md:text-base text-sm text-light rounded-md focus:outline-none w-full" style={{"minHeight" : "38px"}} 
                                 ref={textareaRef}
                                 onChange={(event) => setNewQuestion(event.target.value)}
                                 onKeyDown={handleKeyDown}
@@ -122,7 +122,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHist
                     </form>
                 </div>
             </div>
-            {openHistory && <ChatHistory pages={pages} onPageChange={setPages} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} profpics={profpics} isKMP={isKMP} setIsKMP={setIsKMP} openHistory={openHistory} />}
+            {openHistory && <ChatHistory pages={pages} onPageChange={setPages} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} profpics={profpics} isKMP={isKMP} setIsKMP={setIsKMP} openHistory={openHistory} setOpenHistory={setOpenHistory}/>}
         </div>
     );
 };
