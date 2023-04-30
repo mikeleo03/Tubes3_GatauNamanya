@@ -1,6 +1,6 @@
 {
-  "name": "src",
-  "version": "0.1.0",
+  "name": "frontend",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@auth0/auth0-react": "^2.0.1",
