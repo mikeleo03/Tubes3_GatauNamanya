@@ -15,7 +15,6 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHist
     const textareaRef = useRef(null);
     const [newQuestion, setNewQuestion] = useState('');
     const [isKMP, setIsKMP] = useState(false);
-    let ans;
 
     const incrementPage = () => {
         setCurrentPage(currentPage + 1);
@@ -66,31 +65,6 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHist
             });
         }
     };
-
-    /* const handleAnswer = async (index) => {
-        let pos = pages[currentPage].convo;
-        let question = pos[index].question;
-        let response;
-        try {
-            if (isKMP) {
-                response = await getAnswer({ token, question, algorithm: "KMP" });
-            } else {
-                response = await getAnswer({ token, question, algorithm: "BM" });
-            }
-            if (response.status === 200) {
-                pos[index].answer = response.data;
-                pos[index].answered = true;
-            } else {
-                toast.error(response.message , {
-                    position: toast.POSITION.TOP_RIGHT
-                });
-            }
-        } catch (err) {
-            toast.error(err.message, {
-                position: toast.POSITION.TOP_RIGHT
-            });
-        }
-    }; */
 
     useEffect(() => {
         bottomRef.current?.scrollIntoView({behavior: 'smooth'});
@@ -149,7 +123,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHist
                     </form>
                 </div>
             </div>
-            {openHistory && <ChatHistory pages={pages} onPageChange={setPages} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} profpics={profpics} isKMP={isKMP} setIsKMP={setIsKMP} openHistory={openHistory} setOpenHistory={setOpenHistory}/>}
+            {openHistory && <ChatHistory pages={pages} onPageChange={setPages} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} profpics={profpics} setIsKMP={setIsKMP} openHistory={openHistory} setOpenHistory={setOpenHistory}/>}
         </div>
     );
 };

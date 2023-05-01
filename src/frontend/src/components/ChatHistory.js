@@ -6,7 +6,7 @@ import { MenuButton, Profile } from './Additional';
 
 const PAGE_SIZE = 20;
 
-function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPageNow, profpics, isKMP, setIsKMP, openHistory, setOpenHistory }) {
+function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPageNow, profpics, setIsKMP, openHistory, setOpenHistory }) {
     const handleAddPage = () => {
         console.log(pages.length);
         if (pages.length < PAGE_SIZE) {

@@ -12,7 +12,7 @@ const QuestionBubble = ({ message, /* pages, setPages, currentPage, */ profpics,
     };
 
     return (
-        <div class='current-bubble'>
+        <div className='current-bubble'>
             <div className="bg-gray-100 mt-4 md:py-6 py-4 md:px-8 px-6 md:pb-16 pb-12 w-full rounded-lg border border-slate-300" style={{float: 'right'}}>
                 {!updateQuestion ? (
                     <div className='md:text-lg text-base w-full break-words'>
@@ -25,11 +25,11 @@ const QuestionBubble = ({ message, /* pages, setPages, currentPage, */ profpics,
                     </textarea>
                 )}
             </div>
-            <div className='md:mr-8 mr-6 mt-[-2.5rem] bg-gray-700 px-2 pt-2 pb-2 rounded-lg' style={{float: 'right'}}>
+            <div className='md:mr-8 mr-6 md:mt-[-2.5rem] mt-[-1.5rem] bg-gray-700 px-2 pt-2 pb-2 rounded-lg' style={{float: 'right'}}>
                 <img src={profpics} alt="Profile" className="md:h-16 h-12"></img>
             </div>
             <div>
-                <button class="md:py-1 py-0.5 px-2 md:mt-2.5 mt-1 mb-1 md:text-base text-sm text-light hover:bg-gray-400 bg-gray-500 rounded-md" onClick={handleSetQ}>Edit</button>
+                <button className="md:py-1 py-0.5 px-2 md:mt-2.5 mt-1 mb-1 md:text-base text-sm text-light hover:bg-gray-400 bg-gray-500 rounded-md" onClick={handleSetQ}>Edit</button>
             </div>
         </div>
     );
@@ -51,7 +51,7 @@ const AnswerBubble = ({ message }) => {
                     {message}
                 </div>
             </div>
-            <div className='md:ml-8 ml-6 mt-[-2.5rem] bg-gray-700 px-2 pt-2 pb-2 rounded-lg' style={{float: 'left'}}>
+            <div className='md:ml-8 ml-6 md:mt-[-2.5rem] mt-[-1.5rem] bg-gray-700 px-2 pt-2 pb-2 rounded-lg' style={{float: 'left'}}>
                 <img src={bot} alt="Bot" className="md:h-16 h-12"></img>
             </div>
             <div style={{float: 'right'}} className='mt-1.5'>
