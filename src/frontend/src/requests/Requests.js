@@ -16,8 +16,8 @@ const getResponse = (status, message, data) => {
  * @returns {{status: Number, message: String, data: String}} answer - jawaban dari pertanyaan terkait
  * 
  */
-const getAnswer = ({ token, question, algorithm }) => {
-    fetch(url + "/queries/answer", {
+const getAnswer = async ({ token, question, algorithm }) => {
+    await fetch(url + "/queries/answer", {
     method: "GET",
     body: JSON.stringify({
         question : question,
@@ -43,9 +43,9 @@ const getAnswer = ({ token, question, algorithm }) => {
  * array kosong.
  * 
  */
-const getPages = ({ token, id }) => {
+const getPages = async ({ token, id }) => {
 
-    fetch(url + `/histories/${id}`, {
+    await fetch(url + `/histories/${id}`, {
         method: "GET",
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -71,8 +71,8 @@ const getPages = ({ token, id }) => {
  * @returns {{status: Number, message: String, data: null}}
  * 
  */
-const storeData = ({ token, id, pages }) => {
-    fetch(url + `/histories`, {
+const storeData = async ({ token, id, pages }) => {
+    await fetch(url + `/histories`, {
         method: "POST",
         body: JSON.stringify({
             user_id: id,
@@ -97,8 +97,8 @@ const storeData = ({ token, id, pages }) => {
  * @returns {{status: Number, message: String, data: null}}
  * 
  */
-const updateData = ({ token, id, pages }) => {
-    fetch(url + `/histories/${id}`, {
+const updateData = async ({ token, id, pages }) => {
+    await fetch(url + `/histories/${id}`, {
         method: "PUT",
         body: JSON.stringify({
             pages: pages
