@@ -17,16 +17,19 @@ const getResponse = (status, message, data) => {
  * 
  */
 const getAnswer = async ({ token, question, algorithm }) => {
-    const result = await fetch(url + "/queries/answer", {
-    method: "GET",
-    body: JSON.stringify({
-        question : question,
-        algorithm : algorithm,
-    }),
-    headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        'Authorization': `Bearer ${token}`,
-    }
+    
+    const result = await fetch(url + "/queries/answer?" 
+        + new URLSearchParams({
+            question: question,
+            algorithm: algorithm,
+        }), 
+
+    {
+        method: "GET",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            'Authorization': `Bearer ${token}`,
+        }
     })
     .then(async (response) => {const json = await response.json(); return {...json, status: response.status}})
     .then((json) => getResponse(json.status, json.message, json.data))

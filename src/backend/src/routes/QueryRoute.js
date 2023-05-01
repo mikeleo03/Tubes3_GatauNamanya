@@ -6,8 +6,7 @@ router.use(express.json());
 
 
 router.get('/answer', async (req,res) => {
-    
-    getAnswer(req.body.question, req.body.algorithm)
+    getAnswer(req.query.question, req.query.algorithm)
 
     .then(answer => {
         res.status(200).json({
