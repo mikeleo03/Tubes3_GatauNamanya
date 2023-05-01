@@ -9,7 +9,7 @@ import { getAnswer } from "../requests/Requests";
 
 import send from "../assets/icons/send.webp"
 
-function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHistory, setOpenHistory }) {
+function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHistory, setOpenHistory, token }) {
     // Handle Users Messages
     const bottomRef = useRef(null);
     const textareaRef = useRef(null);
@@ -26,40 +26,71 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHist
     };
 
     // Function that handles the new response
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const currentPagePos = pages[currentPage];
         if (currentPagePos && currentPagePos.convo) {
             if (newQuestion !== "") {
                 // Set page element
-                console.log(currentPage);
-                const newcurrentPagePos = {...currentPagePos, convo: [...currentPagePos.convo, { question: newQuestion, answer: '', answered: false }] };
-                console.log(newcurrentPagePos);
-                const newPages = [...pages.slice(0, currentPage), newcurrentPagePos, ...pages.slice(currentPage + 1)];
-                console.log(newPages);
+                const newcurrentPagePos = {...currentPagePos,
+                convo: [...currentPagePos.convo, { question: newQuestion, answer: '', answered: false }]};
 
-                // Inget buat consider panjangnya?
+                const newPages = [...pages.slice(0, currentPage), newcurrentPagePos, ...pages.slice(currentPage + 1)];
+                
                 setPages(newPages);
-                console.log(pages);
                 setNewQuestion('');
+        
+                // Get the answer
+                const response = await getAnswer({ token, question: newQuestion, algorithm: isKMP ? 'KMP' : 'BM' });
+                const { status, data, message } = response;
+        
+                // Update the page element with the answer
+                if (status === 200) {
+                    const answerIndex = newcurrentPagePos.convo.length - 1;
+                    newcurrentPagePos.convo[answerIndex].answer = data;
+                    newcurrentPagePos.convo[answerIndex].answered = true;
+                    setPages([
+                        ...pages.slice(0, currentPage),
+                        newcurrentPagePos,
+                        ...pages.slice(currentPage + 1)
+                    ]);
+                } else {
+                    toast.error(message, {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                }
             }
         } else {
             toast.error("The chat page is empty, You can't add any message here!", {
                 position: toast.POSITION.TOP_RIGHT
             });
         }
-    }
+    };
 
-    const handleAnswer = (index) => {
+    /* const handleAnswer = async (index) => {
         let pos = pages[currentPage].convo;
-        if (isKMP) {
-            ans = getAnswer(pos[index].question, "KMP");
-        } else {
-            ans = getAnswer(pos[index].question, "BM");
+        let question = pos[index].question;
+        let response;
+        try {
+            if (isKMP) {
+                response = await getAnswer({ token, question, algorithm: "KMP" });
+            } else {
+                response = await getAnswer({ token, question, algorithm: "BM" });
+            }
+            if (response.status === 200) {
+                pos[index].answer = response.data;
+                pos[index].answered = true;
+            } else {
+                toast.error(response.message , {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+            }
+        } catch (err) {
+            toast.error(err.message, {
+                position: toast.POSITION.TOP_RIGHT
+            });
         }
-        pos[index].answer = ans;
-        pos[index].answered = true;
-    }
+    }; */
 
     useEffect(() => {
         bottomRef.current?.scrollIntoView({behavior: 'smooth'});
@@ -87,11 +118,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHist
                         (pages[currentPage].convo.map((question, index) => (
                             <div key={index}>
                                 <QuestionBubble idx={index} message={question.question} currentPage={currentPage} pages={pages} setPages={setPages} profpics={profpics} handleKeyDown={handleKeyDown} />
-                                {!question.answered ? (
-                                    <div>{handleAnswer(index)}</div>
-                                    ) : (
-                                    <AnswerBubble message={question.answer} />
-                                )}
+                                {question.answered && (<AnswerBubble message={question.answer} />)}
                             </div>
                         ))) : (
                         <ChatPlaceHolder />
