@@ -8,24 +8,19 @@ const HistorySchema = new mongoose.Schema({
         unique : true,
     },
 
-    question : {
-        type : String,
-        require : true,
-        unique : false,
-    },
-
-    answer : {
-        type : String,
-        require : true,
-        unique : false,
-    },
-
-    date_time : {
-        type : Date,
-        default : Date.now(),
-        unique : false,
-    },
-
+    pages : [{
+        convo : [{
+            question : String,
+            answer : String,
+            answered : Boolean
+        }],
+        name : {
+            type : String,
+            require : true,
+            unique : true
+        }
+    }],
+    
 });
 
 const History = mongoose.model('history', HistorySchema);
