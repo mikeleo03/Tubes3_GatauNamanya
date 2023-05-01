@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Chat from '../components/Chat';
 import { useAuth0 } from '@auth0/auth0-react'
-import profile from "../assets/icons/profile.ico"
+// import profile from "../assets/icons/profile.ico"
 import { getPages } from "../requests/Requests";
 
 const backgroundStyle = {
@@ -25,7 +25,7 @@ const ChatBot = () => {
         }
 
         fetchData()
-        .then(async token => {getPages({token: token, id: user.sub}); console.log(user.sub)})
+        .then(async token => {getPages({token: token, id: user.sub})})
         .then(res => {console.log(res.data); setListQuestion(res.data)})
     
     }, [getAccessTokenSilently, user.sub])
@@ -40,9 +40,9 @@ const ChatBot = () => {
     
     return (
         <div style={backgroundStyle} className="flex lg:p-[3vh]">
-            <Chat profpics={profile} style={backgroundStyle} className="flex p-[3vh]" 
+            <Chat style={backgroundStyle} className="flex p-[3vh]" 
             pages={pages} setPages={setPages} currentPage={currentPage} setCurrentPage={setCurrentPage}
-            openHistory={openHistory} setOpenHistory={setOpenHistory} token={userToken} />
+            openHistory={openHistory} setOpenHistory={setOpenHistory} token={userToken} user={user} />
         </div>
     );
 };
