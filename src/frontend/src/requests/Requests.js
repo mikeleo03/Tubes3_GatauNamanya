@@ -17,7 +17,7 @@ const getResponse = (status, message, data) => {
  * 
  */
 const getAnswer = async ({ token, question, algorithm }) => {
-    await fetch(url + "/queries/answer", {
+    const result = await fetch(url + "/queries/answer", {
     method: "GET",
     body: JSON.stringify({
         question : question,
@@ -28,9 +28,11 @@ const getAnswer = async ({ token, question, algorithm }) => {
         'Authorization': `Bearer ${token}`,
     }
     })
-    .then((response) => response.json())
+    .then(async (response) => {const json = await response.json(); return {...json, status: response.status}})
     .then((json) => getResponse(json.status, json.message, json.data))
     .catch((err) => getResponse(err.status, err.message, null))
+
+    return result;
 };
 
 /**
@@ -45,15 +47,18 @@ const getAnswer = async ({ token, question, algorithm }) => {
  */
 const getPages = async ({ token, id }) => {
 
-    await fetch(url + `/histories/${id}`, {
+    const result = await fetch(url + `/histories/${id}`, {
         method: "GET",
         headers: {
             'Authorization': `Bearer ${token}`,
         }
         })
-        .then((response) => response.json())
+        .then(async (response) => {const json = await response.json(); return {...json, status: response.status}})
         .then((json) => getResponse(json.status, json.message, json.data))
         .catch((err) => getResponse(err.status, err.message, null))
+
+
+    return result;
 };
 
 // Niatnya nambah ke database data page yang ada
@@ -72,7 +77,7 @@ const getPages = async ({ token, id }) => {
  * 
  */
 const storeData = async ({ token, id, pages }) => {
-    await fetch(url + `/histories`, {
+    const result = await fetch(url + `/histories`, {
         method: "POST",
         body: JSON.stringify({
             user_id: id,
@@ -83,9 +88,11 @@ const storeData = async ({ token, id, pages }) => {
             'Authorization': `Bearer ${token}`,
         }
         })
-        .then((response) => response.json())
+        .then(async (response) => {const json = await response.json(); return {...json, status: response.status}})
         .then((json) => getResponse(json.status, json.message, null))
         .catch((err) => getResponse(err.status, err.message, null))
+
+    return result;
 };
 
 /**
@@ -98,7 +105,7 @@ const storeData = async ({ token, id, pages }) => {
  * 
  */
 const updateData = async ({ token, id, pages }) => {
-    await fetch(url + `/histories/${id}`, {
+    const result = await fetch(url + `/histories/${id}`, {
         method: "PUT",
         body: JSON.stringify({
             pages: pages
@@ -108,9 +115,11 @@ const updateData = async ({ token, id, pages }) => {
             'Authorization': `Bearer ${token}`,
         }
         })
-        .then((response) => response.json())
+        .then(async (response) => {const json = await response.json(); return {...json, status: response.status}})
         .then((json) => getResponse(json.status, json.message, null))
         .catch((err) => getResponse(err.status, err.message, null))
+
+    return result;
 };
 
 export { getAnswer, getPages, storeData, updateData } ;
