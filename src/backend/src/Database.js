@@ -21,7 +21,7 @@ async function find_question(q, algorithm) {
     }
   }
   for await (const doc of qa_database) {
-    if (LCS(q, doc.question) >= q.length * 0.9)  {
+    if (LCS(q, doc.question) >= Math.max(q.length, doc.question) * 0.9)  {
       return doc._id;
     }
   }
