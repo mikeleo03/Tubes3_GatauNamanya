@@ -76,9 +76,12 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHist
         textareaRef.current.style.height = scrollHeight + "px";
     }, [newQuestion]);
 
+    const [updateQuestion, setUpdateQuestion] = useState(false);
+
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             handleSubmit(event);
+            updateQuestion ? (setUpdateQuestion(false)) : (setUpdateQuestion(false));
         }
     };
 
@@ -91,8 +94,8 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHist
                     {(pages[currentPage] && pages[currentPage].convo) ? ((pages[currentPage].convo.length > 0) ? 
                         (pages[currentPage].convo.map((question, index) => (
                             <div key={index}>
-                                <QuestionBubble idx={index} message={question.question} currentPage={currentPage} pages={pages} setPages={setPages} profpics={profpics} handleKeyDown={handleKeyDown} />
-                                {question.answered && (<AnswerBubble message={question.answer} />)}
+                                <QuestionBubble idx={index} message={question.question} newQuestion={newQuestion} setNewQuestion={setNewQuestion} updateQuestion={updateQuestion} setUpdateQuestion={setUpdateQuestion} profpics={profpics} handleKeyDown={handleKeyDown} />
+                                {question.answered && (<AnswerBubble message={question.answer} handleSubmit={handleSubmit}/>)}
                             </div>
                         ))) : (
                         <ChatPlaceHolder />

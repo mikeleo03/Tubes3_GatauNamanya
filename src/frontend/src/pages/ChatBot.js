@@ -25,7 +25,7 @@ const ChatBot = () => {
         }
 
         fetchData()
-        .then(async token => getPages({token: token, id: user.sub}))
+        .then(async token => {getPages({token: token, id: user.sub}); console.log(user.sub)})
         .then(res => {console.log(res.data); setListQuestion(res.data)})
     
     }, [getAccessTokenSilently, user.sub])
