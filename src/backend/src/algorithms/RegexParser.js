@@ -13,12 +13,14 @@ async function getAnswer(text, algorithm) {
         let q,a = "";
         switch (type) {
             case "date" :
-                let split_date = t.replace(/\s*((hari)?\s*(apa)?)?\s*/i, "").split("/");
+                let split_date = t.replace(/\s*((hari)?\s*(apa)?)?\s*/i, "").replace(/[^0-9/]*\s*((hari)?\s*(apa)?)?\s*/i, "").replace("?","").split("/");
+                console.log(split_date);
                 split_date[2] = split_date[2].substring(0,4);
                 let d = new Date(split_date[1] + "/" + split_date[0] + "/" + split_date[2]);
                 responses.push("Hari " + days[d.getDay()]);
                 break;
             case "calculator" :
+                t = t.replace("=", "").replace("?","");
                 responses.push(Calculate(t));
                 break;
             case "add" :
