@@ -19,6 +19,7 @@ async function getAnswer(text, algorithm) {
                 responses.push("Hari " + days[d.getDay()]);
                 break;
             case "calculator" :
+                t = t.replace("=", "");
                 responses.push(Calculate(t));
                 break;
             case "add" :
