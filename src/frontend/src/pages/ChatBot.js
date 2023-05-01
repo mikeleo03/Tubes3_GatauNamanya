@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Chat from '../components/Chat';
 import { useAuth0 } from '@auth0/auth0-react'
 import profile from "../assets/icons/profile.ico"
@@ -14,32 +14,22 @@ const backgroundStyle = {
 
 const ChatBot = () => {
     const { getAccessTokenSilently, user } = useAuth0();
+    const [listQuestion, setListQuestion] = useState();
 
-    /* useEffect(() => {
+    useEffect(() => {
         const fetchData = async () => {
             const token = await getAccessTokenSilently();
             return token
         }
+
         fetchData()
-        .then(token => {
-            fetch("http://localhost:5000/queries/answers", {
-                method: 'GET',
-                headers: new Headers({
-                    'Authorization': `Bearer ${token}`,
-                }),
-            })
-            .then((res) => res.json())
-            .then((res) => console.log(res));
-        })
-    }) */
+        .then(async token => getPages({token: token, id: "1"}))
+        .then(res => {console.log(res.data); setListQuestion(res.data)})
+    
+    }, [getAccessTokenSilently])
 
-    const fetchData = async () => {
-        const token = await getAccessTokenSilently();
-        return token
-    }
-
-    const token = fetchData();
-    let listQuestion = getPages(token, user.sub);
+    
+    
 
     // Process depending on retval
     const width = window.innerWidth;

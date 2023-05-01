@@ -36,7 +36,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // UNSECURE API
-// app.use('/', queryRouter)
+// app.use('/queries', queryRouter)
+// app.use('/histories', historyRouter)
 
 // SECURE API
 app.use('/queries', checkJwt, queryRouter)
