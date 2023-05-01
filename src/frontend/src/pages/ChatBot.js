@@ -40,10 +40,14 @@ const ChatBot = () => {
 
     const token = fetchData();
     let listQuestion = getPages(token, user.sub);
+
     // Process depending on retval
+    const width = window.innerWidth;
+    // The width below which the mobile view should be rendered
+    const breakpoint = 1000;
     const [pages, setPages] = useState(listQuestion ? (listQuestion) : ([{ convo: [], name : "" }]));
     const [currentPage, setCurrentPage] = useState(0);
-    const [openHistory, setOpenHistory] = useState(true);
+    const [openHistory, setOpenHistory] = useState(width < breakpoint ? (false) : (true));
     
     return (
         <div style={backgroundStyle} className="flex lg:p-[3vh]">
