@@ -9,19 +9,19 @@ async function find_question(q, algorithm) {
   let qa_database = Query.find();
   if (algorithm == "BM") {
     for await (const doc of qa_database) {
-      if (BooyerMoore(q, doc.question) != -1)  {
+      if (BooyerMoore(q, doc.question) != -1 && q.length == doc.question.length)  {
         return doc._id;
       }
     }
   } else {
     for await (const doc of qa_database) {
-      if (KMP(q, doc.question) != -1)  {
+      if (KMP(q, doc.question) != -1 && q.length == doc.question.length)  {
         return doc._id;
       }
     }
   }
   for await (const doc of qa_database) {
-    if (LCS(q, doc.question) >= doc.question.length * 0.9)  {
+    if (LCS(q, doc.question) >= q.length * 0.9)  {
       return doc._id;
     }
   }
