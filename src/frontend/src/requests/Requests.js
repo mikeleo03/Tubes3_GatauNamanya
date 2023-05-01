@@ -13,7 +13,7 @@ const getResponse = (status, message, data) => {
  * 
  * @param {String} question - pertanyaan yang disampaikan
  * @param {String} algorithm - jenis algorithm yang digunakan, "BM" atau "KMP"
- * @returns {{status: Number, message: String, data: String}} answer - jawaban dari pertanyaan terkait
+ * @returns {{status: Number, message: String, data: Array<String>}} answer - jawaban dari pertanyaan terkait
  * 
  */
 const getAnswer = async ({ token, question, algorithm }) => {
