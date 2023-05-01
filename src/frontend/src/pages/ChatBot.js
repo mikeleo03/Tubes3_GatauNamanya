@@ -18,18 +18,15 @@ const ChatBot = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const token = await getAccessTokenSilently();
+            const token = await getAccessTokenSilently().then(token => console.log(token));
             return token
         }
 
         fetchData()
-        .then(async token => getPages({token: token, id: "1"}))
+        .then(async token => getPages({token: token, id: user.sub}))
         .then(res => {console.log(res.data); setListQuestion(res.data)})
     
     }, [getAccessTokenSilently])
-
-    
-    
 
     // Process depending on retval
     const width = window.innerWidth;
@@ -43,7 +40,7 @@ const ChatBot = () => {
         <div style={backgroundStyle} className="flex lg:p-[3vh]">
             <Chat profpics={profile} style={backgroundStyle} className="flex p-[3vh]" 
             pages={pages} setPages={setPages} currentPage={currentPage} setCurrentPage={setCurrentPage}
-            openHistory={openHistory} setOpenHistory={setOpenHistory} />
+            openHistory={openHistory} setOpenHistory={setOpenHistory} token={token} />
         </div>
     );
 };
