@@ -12,7 +12,7 @@ function Profile(props) {
     return (
         <button class="profile-section" className="md:h-18 h-12 flex flex-row space-x-1 mb-4 bg-gray-600 focus:bg-gray-500 hover:bg-gray-500 rounded-md px-3 w-full">
             <div className="w-1/5 flex justify-center align-center md:py-2 py-1 pt-2 shrink-0">
-                <img src={props.user.picture} alt="Profile" className="h-8 rounded-full"></img>
+                <img src={props.user.picture} alt="Profile" ferrerPolicy="no-referrer" className="h-8 rounded-full"></img>
             </div>
             <div className="w-4/5 pl-2 pt-1 align-left overflow-hidden">
                 <p className="text-light text-left md:text-base text-sm">{props.user.name}</p>

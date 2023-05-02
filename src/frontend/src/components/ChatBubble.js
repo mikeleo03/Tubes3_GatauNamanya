@@ -65,8 +65,8 @@ const AnswerBubble = ({ message, handleSubmit }) => {
                 <img src={bot} alt="Bot" className="md:h-16 h-12"></img>
             </div>
             <div style={{float: 'right'}} className='mt-1.5'>
-                <button class="md:py-1 py-0.5 px-2 md:mt-2.5 mt-1 mb-1 md:text-base text-sm mr-3 text-light hover:bg-gray-400 bg-gray-500 rounded-md" onClick={handleSubmit}>Regenerate Response</button>
-                <button class="md:py-1 py-0.5 px-2 md:mt-2.5 mt-1 mb-1 md:text-base text-sm text-light hover:bg-gray-400 bg-gray-500 rounded-md" onClick={handleCopy} >Copy</button>
+                <button className="md:py-1 py-0.5 px-2 md:mt-2.5 mt-1 mb-1 md:text-base text-sm mr-3 text-light hover:bg-gray-400 bg-gray-500 rounded-md" onClick={handleSubmit}>Regenerate Response</button>
+                <button className="md:py-1 py-0.5 px-2 md:mt-2.5 mt-1 mb-1 md:text-base text-sm text-light hover:bg-gray-400 bg-gray-500 rounded-md" onClick={handleCopy} >Copy</button>
                 <ToastContainer />
             </div>
         </div>

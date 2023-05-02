@@ -60,7 +60,6 @@ const getPages = async ({ token, id }) => {
         .then((json) => getResponse(json.status, json.message, json.data))
         .catch((err) => getResponse(err.status, err.message, null))
 
-
     return result;
 };
 
