@@ -11,7 +11,10 @@ const HistorySchema = new mongoose.Schema({
     pages : [{
         convo : [{
             question : String,
-            answer : String,
+            answer : {
+                type: Array,
+                default: []
+            },
             answered : Boolean
         }],
         name : {
