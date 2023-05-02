@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Chat from '../components/Chat';
 import { useAuth0 } from '@auth0/auth0-react'
-// import profile from "../assets/icons/profile.ico"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { getPages, storeData } from "../requests/Requests";
 
 const backgroundStyle = {
@@ -40,7 +41,14 @@ const ChatBot = () => {
 
     if (!listQuestion) {
         const response = storeData ({ userToken, id: user.sub, pages })
-        .then(res => {console.log(res.message)});
+        const { status, message, data } = response;
+        if (status !== 200) {
+            toast.error(message, {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        } else {
+            console.log(data);
+        }
     }
     
     return (
@@ -48,6 +56,7 @@ const ChatBot = () => {
             <Chat style={backgroundStyle} className="flex p-[3vh]" 
             pages={pages} setPages={setPages} currentPage={currentPage} setCurrentPage={setCurrentPage}
             openHistory={openHistory} setOpenHistory={setOpenHistory} token={userToken} user={user} />
+            <ToastContainer />
         </div>
     );
 };
