@@ -50,12 +50,24 @@ router.post('/', async (req,res) => {
 
 
 router.put('/:id', async (req,res) => {
-    History.findOneAndUpdate({user_id: req.params.id}, req.body, {useFindAndModify: false})
+
+    History.findOneAndUpdate({user_id: req.params.id}, req.body, {new: true})
     .then(data => {
-        res.status(200).json({
-            message : "User history is updated!",
-            data: null,
-        })
+        
+        if (data)
+        {
+            res.status(200).json({
+                message : "User history is updated!",
+                data: null,
+            })
+        }
+        
+        else
+        {
+            throw {
+                message: "User history not found"
+            }
+        }
     })
     .catch(err => {res.status(500).send({
         message : err.message || "Unknown Error",
