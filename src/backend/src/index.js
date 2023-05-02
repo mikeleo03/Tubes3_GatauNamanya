@@ -36,12 +36,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // UNSECURE API
-// app.use('/queries', queryRouter)
-// app.use('/histories', historyRouter)
+app.use('/queries', queryRouter)
+app.use('/histories', historyRouter)
 
 // SECURE API
-app.use('/queries', checkJwt, queryRouter)
-app.use('/histories', checkJwt, historyRouter)
+// app.use('/queries', checkJwt, queryRouter)
+// app.use('/histories', checkJwt, historyRouter)
 
 // app.use((err, req, res, next) => {  
 //     if (err.name === 'UnauthorizedError') {

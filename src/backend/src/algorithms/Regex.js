@@ -1,6 +1,6 @@
 const type_regex = {
-    date : /((hari)?\s*(apa)?)?\s*[0-9][0-9]\/[0-9][0-9]\/[0-9][0-9][0-9][0-9]\s*((hari)?\s*(apa)?)?\s*\??/i,
-    calculator : /(\s*\(*\s*\(*[0-9]+(\.[0-9]+)?\)*\s*[-+*/%^]\s*\(*[0-9]+(\.[0-9]+)?\)*\s*\)*\s*[=\?]?)+/,
+    date : /^((\s*(hari)\s*(apa)?)|\s*)\s*\d{2}[\/-]\d{2}[\/-]\d{4}\s*((hari\s*(apa)?\s*\??)|\??|[^\w\d])$/i,
+    calculator : /^[^a-zA-Z]*\s*(\(*\s*\(*\d+(\.\d+)?\)*\s*([-+*/^]\s*)+\s*\(*\d+(\.\d+)?\)*\s*\)*\s*[=\?]?)+[^a-zA-Z]*$/,
     add : /(tambahkan|tambah) pertanyaan .+ dengan jawaban .+/i,
     delete : /hapus pertanyaan \S+/i
 }
@@ -8,6 +8,7 @@ const type_regex = {
 function identify_statement_type(text) {
     for (let type in type_regex) {
         if (type_regex[type].test(text)) {
+            console.log(type);
             return type;
         }
     }
