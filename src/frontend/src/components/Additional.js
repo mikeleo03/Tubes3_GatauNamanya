@@ -10,7 +10,7 @@ function MenuButton(props) {
 
 function Profile(props) {
     return (
-        <button className="profile-section" className="md:h-18 h-12 flex flex-row space-x-1 mb-4 bg-gray-600 focus:bg-gray-500 hover:bg-gray-500 rounded-md px-3 w-full">
+        <button className="profile-section md:h-18 h-12 flex flex-row space-x-1 mb-4 bg-gray-600 focus:bg-gray-500 hover:bg-gray-500 rounded-md px-3 w-full">
             <div className="w-1/5 flex justify-center align-center md:py-2 py-1 pt-2 shrink-0">
                 <img src={props.user.picture} alt="Profile" ferrerpolicy="no-referrer" className="h-8 rounded-full"></img>
             </div>
