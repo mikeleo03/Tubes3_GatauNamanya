@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ChatHistory from "./ChatHistory";
 import ChatHeader from "./ChatHeader";
 import ChatPlaceHolder from "./ChatPlaceHolder";
-import { getAnswer, updateData, storeData } from "../requests/Requests";
+import { getAnswer, updateData } from "../requests/Requests";
 
 import send from "../assets/icons/send.webp"
 
@@ -131,7 +131,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, openHistory, setOp
                     </form>
                 </div>
             </div>
-            {openHistory && <ChatHistory pages={pages} onPageChange={setPages} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} setIsKMP={setIsKMP} openHistory={openHistory} setOpenHistory={setOpenHistory} user={user}/>}
+            {openHistory && <ChatHistory pages={pages} onPageChange={setPages} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} setIsKMP={setIsKMP} openHistory={openHistory} setOpenHistory={setOpenHistory} user={user} token={token}/>}
         </div>
     );
 };

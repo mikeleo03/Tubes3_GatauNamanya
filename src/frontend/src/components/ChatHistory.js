@@ -1,18 +1,22 @@
 import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { updateData } from "../requests/Requests";
 
 import { MenuButton, Profile } from './Additional';
 
 const PAGE_SIZE = 20;
 
-function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPageNow, setIsKMP, openHistory, setOpenHistory, user }) {
+function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPageNow, setIsKMP, openHistory, setOpenHistory, user, token }) {
     const handleAddPage = () => {
         console.log(pages.length);
         if (pages.length < PAGE_SIZE) {
             onPageChange([...pages, { convo : [], name : "" }]);
             incrementPage();
             setPageNow(pages.length);
+            // Update to database
+            const response = updateData ({ token, id: user.sub, pages })
+            .then(response => {console.log(response.message)});
         } else {
             toast.error('You have excedeed the maximum number of chat pages!', {
                 position: toast.POSITION.TOP_RIGHT
@@ -38,6 +42,9 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
             position: toast.POSITION.TOP_RIGHT
         });
         console.log(pageIndex);
+        // Update to database
+        const response = updateData ({ token, id: user.sub, pages })
+        .then(response => {console.log(response.message)});
     };
 
     const handleKMP = () => {
