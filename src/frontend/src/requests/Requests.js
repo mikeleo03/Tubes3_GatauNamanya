@@ -43,7 +43,7 @@ const getAnswer = async ({ token, question, algorithm }) => {
  * 
  * @param id - id dari pengguna
  * @param token
- * @returns {{status: Number, message: String, data: Array<{convo:Array<{question:String, answer:String, answered: Boolean}>, name:String}>}} 
+ * @returns {{status: Number, message: String, data: Array<{convo:Array<{question:String, answer:Array<String>, answered: Boolean}>, name:String}>}} 
  * listQuestion - daftar pertanyaan yang pernah diajukan, kalo gaada return
  * array kosong.
  * 
