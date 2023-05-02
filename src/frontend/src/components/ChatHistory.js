@@ -9,7 +9,6 @@ const PAGE_SIZE = 20;
 
 function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPageNow, setIsKMP, openHistory, setOpenHistory, user, token }) {
     const handleAddPage = () => {
-        console.log(pages.length);
         if (pages.length < PAGE_SIZE) {
             onPageChange([...pages, { convo : [], name : "" }]);
             incrementPage();
@@ -32,23 +31,20 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
     };
 
     const handlePageSelect = (pageIndex) => {
-        console.log(pageIndex);
         setPageNow(pageIndex);
     };
 
     const handlePageDelete = (pageIndex) => {
-        console.log(pageIndex);
         if (pages.slice(pageIndex + 1).length !== 0) {
             onPageChange([...pages.slice(0, pageIndex), ...pages.slice(pageIndex + 1)]);
         } else {
-            console.log("masuk siniii");
             onPageChange([...pages.slice(0, pageIndex)]);
         }
         decrementPage();
         toast.success('The chat has been deleted successfully', {
             position: toast.POSITION.TOP_RIGHT
         });
-        console.log(pageIndex);
+
         // Update to database
         const response2 = updateData ({ token, id: user.sub, pages })
         const { status2, message2, data2 } = response2;
