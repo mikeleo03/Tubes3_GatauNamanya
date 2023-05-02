@@ -41,7 +41,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, openHistory, setOp
         
                 // Get the answer
                 const response = await getAnswer({ token, question: newQuestion, algorithm: isKMP ? 'KMP' : 'BM' });
-                const { status, data, message } = response;
+                const { status, message, data } = response;
         
                 // Update the page element with the answer
                 if (status === 200) {
@@ -59,10 +59,16 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, openHistory, setOp
                     });
                 }
 
-                console.log(pages);
                 // Update to database
                 const response2 = updateData ({ token, id: user.sub, pages })
-                .then(response2 => {console.log(response2.message)});
+                const { status2, message2, data2 } = response2;
+                if (status2 !== 200) {
+                    toast.error(message2, {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                } else {
+                    console.log(data2);
+                }
             }
         } else {
             toast.error("The chat page is empty, You can't add any message here!", {
