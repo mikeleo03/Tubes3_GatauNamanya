@@ -15,8 +15,15 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
             incrementPage();
             setPageNow(pages.length);
             // Update to database
-            const response = updateData ({ token, id: user.sub, pages })
-            .then(response => {console.log(response.message)});
+            const response2 = updateData ({ token, id: user.sub, pages })
+            const { status2, message2, data2 } = response2;
+            if (status2 !== 200) {
+                toast.error(message2, {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+            } else {
+                console.log(data2);
+            }
         } else {
             toast.error('You have excedeed the maximum number of chat pages!', {
                 position: toast.POSITION.TOP_RIGHT
@@ -43,8 +50,15 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
         });
         console.log(pageIndex);
         // Update to database
-        const response = updateData ({ token, id: user.sub, pages })
-        .then(response => {console.log(response.message)});
+        const response2 = updateData ({ token, id: user.sub, pages })
+        const { status2, message2, data2 } = response2;
+        if (status2 !== 200) {
+            toast.error(message2, {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        } else {
+            console.log(data2);
+        }
     };
 
     const handleKMP = () => {
