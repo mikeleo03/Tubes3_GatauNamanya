@@ -10,10 +10,22 @@ router.get('/:id', async (req,res) => {
     // find all data
     History.findOne({user_id: req.params.id})
     .then(data => {
-        res.status(200).json({
-            message: null,
-            data: data.pages
-        })})
+
+        if (data)
+        {
+            res.status(200).json({
+                message: null,
+                data: data.pages
+            })
+        }
+
+        else
+        {
+            throw {
+                message: "User history not found"
+            }
+        }
+    })
 
     .catch(err => {
         res.status(500).send({
