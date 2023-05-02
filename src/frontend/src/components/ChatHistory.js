@@ -62,14 +62,19 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
     }
 
     const renderPageButton = (pageIndex) => (
-        <div key={pageIndex}>
-            <button onClick={() => handlePageSelect(pageIndex)}
-            className="hover:bg-gray-300 flex hover:rounded-lg focus:bg-gray-300 focus:rounded-lg md:h-12 h-10 overflow-hidden text-ellipsis w-full">
-                <h3 className='font-medium pl-3 pr-3 pt-2.5 text-left overflow-hidden break-all md:h-10 h-8 text-ellipsis w-full md:text-base text-sm'>{pages[pageIndex].name || `Chat ${pageIndex + 1}`}</h3>
-                <button className="pr-3 pl-2 w-12 md:h-12 h-6 md:pt-0 pt-2" onClick={() => handlePageDelete(pageIndex)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" id="trash"><path fill="#231F20" d="M10.289 14.211h3.102l1.444 25.439a1 1 0 0 0 .998.943h18.933a1 1 0 0 0 .998-.944l1.421-25.438h3.104a1 1 0 1 0 0-2h-3.741c-.055 0-.103.023-.156.031-.052-.008-.1-.031-.153-.031h-5.246V9.594a1 1 0 0 0-1-1h-9.409a1 1 0 0 0-1 1v2.617h-5.248c-.046 0-.087.021-.132.027-.046-.007-.087-.027-.135-.027H10.29a1 1 0 0 0-.001 2zm11.295-3.617h7.409v1.617h-7.409v-1.617zm13.598 3.617L33.82 38.594H16.778l-1.384-24.383h19.788z"></path><path fill="#231F20" d="M20.337 36.719l.058-.001a.999.999 0 00.941-1.055l-1.052-18.535a1.012 1.012 0 00-1.055-.942.999.999 0 00-.941 1.055l1.052 18.535a1 1 0 00.997.943zM30.147 36.718l.058.001a1 1 0 00.997-.943l1.052-18.535a1 1 0 00-.941-1.055 1.011 1.011 0 00-1.055.942l-1.052 18.535a1 1 0 00.941 1.055zM25.289 36.719a1 1 0 001-1V17.184a1 1 0 10-2 0v18.535a1 1 0 001 1z"></path></svg>
-                </button>
-            </button>
+        <div key={pageIndex} className="overflow-hidden">
+            <div className="hover:bg-gray-300 flex hover:rounded-lg focus:bg-gray-300 focus:rounded-lg md:h-12 h-10 w-full overflow-hidden">
+                <div className='pt-3 w-full overflow-hidden'>
+                    <button className="w-full overflow-hidden" onClick={() => handlePageSelect(pageIndex)}>
+                        <h3 className='font-medium pl-3 pr-3 text-left overflow-hidden break-all h-6 text-ellipsis w-full md:text-base text-sm'>{pages[pageIndex].name || `Chat ${pageIndex + 1}`}</h3>
+                    </button>
+                </div>
+                <div style={{float: 'right'}}>
+                    <button className="pr-3 pl-2 w-12 md:h-12 h-6 md:pt-0 pt-2" onClick={() => handlePageDelete(pageIndex)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" id="trash"><path fill="#231F20" d="M10.289 14.211h3.102l1.444 25.439a1 1 0 0 0 .998.943h18.933a1 1 0 0 0 .998-.944l1.421-25.438h3.104a1 1 0 1 0 0-2h-3.741c-.055 0-.103.023-.156.031-.052-.008-.1-.031-.153-.031h-5.246V9.594a1 1 0 0 0-1-1h-9.409a1 1 0 0 0-1 1v2.617h-5.248c-.046 0-.087.021-.132.027-.046-.007-.087-.027-.135-.027H10.29a1 1 0 0 0-.001 2zm11.295-3.617h7.409v1.617h-7.409v-1.617zm13.598 3.617L33.82 38.594H16.778l-1.384-24.383h19.788z"></path><path fill="#231F20" d="M20.337 36.719l.058-.001a.999.999 0 00.941-1.055l-1.052-18.535a1.012 1.012 0 00-1.055-.942.999.999 0 00-.941 1.055l1.052 18.535a1 1 0 00.997.943zM30.147 36.718l.058.001a1 1 0 00.997-.943l1.052-18.535a1 1 0 00-.941-1.055 1.011 1.011 0 00-1.055.942l-1.052 18.535a1 1 0 00.941 1.055zM25.289 36.719a1 1 0 001-1V17.184a1 1 0 10-2 0v18.535a1 1 0 001 1z"></path></svg>
+                    </button>
+                </div>
+            </div>
             <div className="md:mt-2 md:mb-2 mt-1 mb-1 h-px bg-slate-300"></div>
         </div>
     );
