@@ -9,7 +9,8 @@ const QuestionSchema = new mongoose.Schema({
     },
 
     answer : {
-        type : String,
+        type : Array,
+        default : [],
         require : true,
         unique : false,
     },
