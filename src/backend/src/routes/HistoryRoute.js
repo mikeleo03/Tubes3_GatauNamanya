@@ -21,9 +21,10 @@ router.get('/:id', async (req,res) => {
 
         else
         {
-            throw {
-                message: "User history not found"
-            }
+            res.status(404).send({
+                message: "User history not found",
+                data: null,
+            })
         }
     })
 
@@ -76,9 +77,10 @@ router.put('/:id', async (req,res) => {
         
         else
         {
-            throw {
-                message: "User history not found"
-            }
+            res.status(404).send({
+                message: "User history not found",
+                data: null,
+            })
         }
     })
     .catch(err => {res.status(500).send({
