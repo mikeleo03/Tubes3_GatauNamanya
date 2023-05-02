@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Chat from '../components/Chat';
 import { useAuth0 } from '@auth0/auth0-react'
 // import profile from "../assets/icons/profile.ico"
-import { getPages } from "../requests/Requests";
+import { getPages, storeData } from "../requests/Requests";
 
 const backgroundStyle = {
     backgroundColor : "#151718",
@@ -16,6 +16,7 @@ const ChatBot = () => {
     const { getAccessTokenSilently, user } = useAuth0();
     const [listQuestion, setListQuestion] = useState();
     const [userToken, setUserToken] = useState();
+    const [pages, setPages] = useState(listQuestion ? (listQuestion) : ([{ convo: [], name : "" }]));
 
     useEffect(() => {
         const fetchData = async () => {
@@ -26,7 +27,7 @@ const ChatBot = () => {
 
         fetchData()
         .then(async token => getPages({token: token, id: user.sub}))
-        .then(res => setListQuestion(res.data))
+        .then(res => {setListQuestion(res.data); setPages(res.data)})
     
     }, [getAccessTokenSilently, user.sub])
 
@@ -34,9 +35,13 @@ const ChatBot = () => {
     const width = window.innerWidth;
     // The width below which the mobile view should be rendered
     const breakpoint = 1000;
-    const [pages, setPages] = useState(listQuestion ? (listQuestion) : ([{ convo: [], name : "" }]));
     const [currentPage, setCurrentPage] = useState(0);
     const [openHistory, setOpenHistory] = useState(width < breakpoint ? (false) : (true));
+
+    if (!listQuestion) {
+        const response = storeData ({ userToken, id: user.sub, pages })
+        .then(res => {console.log(res.message)});
+    }
     
     return (
         <div style={backgroundStyle} className="flex lg:p-[3vh]">
