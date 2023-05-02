@@ -8,7 +8,6 @@ const type_regex = {
 function identify_statement_type(text) {
     for (let type in type_regex) {
         if (type_regex[type].test(text)) {
-            console.log(type);
             return type;
         }
     }
