@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ChatHeader = ({ pages, setPages, currentPage, openHistory, setOpenHistory }) => {
+const ChatHeader = ({ pages, currentPage, setPages, openHistory, setOpenHistory }) => {
     const handleRenamePage = (pageIndex, newName) => {
         const newPages = [...pages];
         newPages[pageIndex].name = newName;

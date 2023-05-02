@@ -9,13 +9,12 @@ import { getAnswer } from "../requests/Requests";
 
 import send from "../assets/icons/send.webp"
 
-function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHistory, setOpenHistory, token }) {
+function Chat({ pages, setPages, currentPage, setCurrentPage, openHistory, setOpenHistory, token, user }) {
     // Handle Users Messages
     const bottomRef = useRef(null);
     const textareaRef = useRef(null);
     const [newQuestion, setNewQuestion] = useState('');
     const [isKMP, setIsKMP] = useState(false);
-    let ans;
 
     const incrementPage = () => {
         setCurrentPage(currentPage + 1);
@@ -67,31 +66,6 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHist
         }
     };
 
-    /* const handleAnswer = async (index) => {
-        let pos = pages[currentPage].convo;
-        let question = pos[index].question;
-        let response;
-        try {
-            if (isKMP) {
-                response = await getAnswer({ token, question, algorithm: "KMP" });
-            } else {
-                response = await getAnswer({ token, question, algorithm: "BM" });
-            }
-            if (response.status === 200) {
-                pos[index].answer = response.data;
-                pos[index].answered = true;
-            } else {
-                toast.error(response.message , {
-                    position: toast.POSITION.TOP_RIGHT
-                });
-            }
-        } catch (err) {
-            toast.error(err.message, {
-                position: toast.POSITION.TOP_RIGHT
-            });
-        }
-    }; */
-
     useEffect(() => {
         bottomRef.current?.scrollIntoView({behavior: 'smooth'});
     });
@@ -102,23 +76,26 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHist
         textareaRef.current.style.height = scrollHeight + "px";
     }, [newQuestion]);
 
+    const [updateQuestion, setUpdateQuestion] = useState(false);
+
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             handleSubmit(event);
+            updateQuestion ? (setUpdateQuestion(false)) : (setUpdateQuestion(false));
         }
     };
 
     return (
         <div className="w-full bg-light flex lg:rounded-2xl">
             <div className={` ${openHistory ? 'lg:block lg:w-3/4 transition-all duration-300' : 'lg:block lg:w-full transition-all duration-300'} ${openHistory ? 'hidden w-full transition-all duration-300' : 'block w-full transition-all duration-300'} relative ${openHistory ? 'px-0 transition-all duration-300' : 'px-7 transition-all duration-300'} lg:px-7 md:pb-20 pb-16`}>
-                <ChatHeader pages={pages} currentPage={currentPage} setPages={setPages} openHistory={openHistory} setOpenHistory={setOpenHistory} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} profpics={profpics} />
+                <ChatHeader pages={pages} currentPage={currentPage} setPages={setPages} openHistory={openHistory} setOpenHistory={setOpenHistory} />
                 <div className="h-px bg-slate-200 ml-[-1.5rem] mr-[-1.5rem]"></div>
                 <div className='h-full md:pb-20 pb-16 overflow-y-auto flex flex-col'>
                     {(pages[currentPage] && pages[currentPage].convo) ? ((pages[currentPage].convo.length > 0) ? 
                         (pages[currentPage].convo.map((question, index) => (
                             <div key={index}>
-                                <QuestionBubble idx={index} message={question.question} currentPage={currentPage} pages={pages} setPages={setPages} profpics={profpics} handleKeyDown={handleKeyDown} />
-                                {question.answered && (<AnswerBubble message={question.answer} />)}
+                                <QuestionBubble idx={index} message={question.question} newQuestion={newQuestion} setNewQuestion={setNewQuestion} updateQuestion={updateQuestion} setUpdateQuestion={setUpdateQuestion} profpics={user.picture} handleKeyDown={handleKeyDown} />
+                                {question.answered && (<AnswerBubble message={question.answer} handleSubmit={handleSubmit}/>)}
                             </div>
                         ))) : (
                         <ChatPlaceHolder />
@@ -149,7 +126,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, profpics, openHist
                     </form>
                 </div>
             </div>
-            {openHistory && <ChatHistory pages={pages} onPageChange={setPages} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} profpics={profpics} isKMP={isKMP} setIsKMP={setIsKMP} openHistory={openHistory} setOpenHistory={setOpenHistory}/>}
+            {openHistory && <ChatHistory pages={pages} onPageChange={setPages} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} setIsKMP={setIsKMP} openHistory={openHistory} setOpenHistory={setOpenHistory} user={user}/>}
         </div>
     );
 };
