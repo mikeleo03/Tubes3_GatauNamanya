@@ -55,7 +55,7 @@ const AnswerBubble = ({ message, handleSubmit }) => {
     };
 
     return (
-        <div class='current-bubble'>
+        <div className='current-bubble'>
             <div className="bg-gray-300 mt-4 md:py-6 py-4 md:px-8 px-6 md:pb-16 pb-12 w-full rounded-lg" style={{float: 'left'}}>
                 <div className='md:text-lg text-base w-full break-words'>
                     <Message text={message} />
