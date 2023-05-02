@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ChatHistory from "./ChatHistory";
 import ChatHeader from "./ChatHeader";
 import ChatPlaceHolder from "./ChatPlaceHolder";
-import { getAnswer } from "../requests/Requests";
+import { getAnswer, updateData, storeData } from "../requests/Requests";
 
 import send from "../assets/icons/send.webp"
 
@@ -58,6 +58,11 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, openHistory, setOp
                         position: toast.POSITION.TOP_RIGHT
                     });
                 }
+
+                console.log(pages);
+                // Update to database
+                const response2 = updateData ({ token, id: user.sub, pages })
+                .then(response2 => {console.log(response2.message)});
             }
         } else {
             toast.error("The chat page is empty, You can't add any message here!", {
