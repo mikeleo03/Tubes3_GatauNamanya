@@ -17,7 +17,7 @@ const ChatPlaceHolder = () => {
                         <p className="md:text-base text-sm text-gray-700">5 + 2 * 5</p>
                     </div>
                     <div className="bg-white md:p-4 p-3 rounded-lg mt-3 mb-3">
-                        <p className="md:text-base text-sm text-gray-700">Tentukan hari dari 25/02/2023</p>
+                        <p className="md:text-base text-sm text-gray-700">25/02/2023 hari apa</p>
                     </div>
                 </div>
                 <div className="mr-3 ml-3 w-52">
