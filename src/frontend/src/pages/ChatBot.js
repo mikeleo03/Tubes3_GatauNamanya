@@ -28,9 +28,9 @@ const ChatBot = () => {
 
         fetchData()
         .then(async token => getPages({token: token, id: user.sub}))
-        .then(res => {setListQuestion(res.data); setPages(res.data)})
+        .then(res => res.data ? (setListQuestion(res.data), setPages(res.data)) : (setPages([{ convo: [], name: "" }])));
     
-    }, [getAccessTokenSilently, user.sub])
+    }, [getAccessTokenSilently])
 
     // Process depending on retval
     const width = window.innerWidth;
@@ -40,7 +40,7 @@ const ChatBot = () => {
     const [openHistory, setOpenHistory] = useState(width < breakpoint ? (false) : (true));
 
     if (!listQuestion) {
-        const response = storeData ({ userToken, id: user.sub, pages })
+        /* const response = storeData ({ userToken, id: user.sub, pages })
         const { status, message, data } = response;
         if (status !== 200) {
             toast.error(message, {
@@ -48,7 +48,7 @@ const ChatBot = () => {
             });
         } else {
             console.log(data);
-        }
+        } */
     }
     
     return (
