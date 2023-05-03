@@ -72,9 +72,9 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
     }
 
     const renderPageButton = (pageIndex) => (
-        <div key={pageIndex} className="overflow-hidden">
+        <div key={pageIndex} className="md:h-12 h-10 mt-1 mb-1">
             <div className="hover:bg-gray-300 flex hover:rounded-lg focus:bg-gray-300 focus:rounded-lg md:h-12 h-10 w-full overflow-hidden">
-                <div className='pt-3 w-full overflow-hidden'>
+                <div className='lg:pt-3 pt-2 w-full overflow-hidden'>
                     <button className="w-full overflow-hidden" onClick={() => handlePageSelect(pageIndex)}>
                         <h3 className='font-medium pl-3 pr-3 text-left overflow-hidden break-all h-6 text-ellipsis w-full md:text-base text-sm'>{pages[pageIndex].name || `Chat ${pageIndex + 1}`}</h3>
                     </button>
@@ -85,7 +85,7 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
                     </button>
                 </div>
             </div>
-            <div className="mt-1 mb-1 h-px bg-slate-300"></div>
+            <div className="mt-1 mb-2 h-px bg-slate-300"></div>
         </div>
     );
 
