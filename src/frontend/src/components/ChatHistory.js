@@ -7,7 +7,7 @@ import { MenuButton, Profile } from './Additional';
 
 const PAGE_SIZE = 20;
 
-function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPageNow, setIsKMP, openHistory, setOpenHistory, user, token }) {
+function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPageNow, setIsKMP, openHistory, setOpenHistory, user, token, logout }) {
     const handleAddPage = () => {
         if (pages.length < PAGE_SIZE) {
             onPageChange([...pages, { convo : [], name : "" }]);
@@ -116,7 +116,7 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
                     <MenuButton label="Knuth–Morris–Pratt" onClick={handleKMP}/>
                     <MenuButton label="Boyer–Moore" onClick={handleBM}/>
                 </div>
-                <Profile user={user}/>
+                <Profile user={user} logout={logout}/>
             </div>
         </div>
     );

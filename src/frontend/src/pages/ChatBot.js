@@ -14,7 +14,7 @@ const backgroundStyle = {
 }
 
 const ChatBot = () => {
-    const { getAccessTokenSilently, user } = useAuth0();
+    const { getAccessTokenSilently, user, logout } = useAuth0();
     const [listQuestion, setListQuestion] = useState();
     const [userToken, setUserToken] = useState();
     const [pages, setPages] = useState(listQuestion ? (listQuestion) : ([{ convo: [], name : "" }]));
@@ -27,10 +27,26 @@ const ChatBot = () => {
         }
 
         fetchData()
-        .then(async token => getPages({token: token, id: user.sub}))
-        .then(res => res.data ? (setListQuestion(res.data), setPages(res.data)) : (setPages([{ convo: [], name: "" }])));
+        .then(async (token) => {
+            const res = await getPages({ token: token, id: user.sub });
+            if (res.data) {
+                setListQuestion(res.data);
+                setPages(res.data);
+            } else {
+                setPages([{ convo: [], name: "" }]);
+                const response = await storeData({ userToken, id: user.sub, pages });
+                const { status, message, data } = response;
+                if (status !== 200) {
+                    toast.error(message, {
+                    position: toast.POSITION.TOP_RIGHT
+                    });
+                } else {
+                    console.log(data);
+                }
+            }
+        });
     
-    }, [getAccessTokenSilently])
+    }, [getAccessTokenSilently, user.sub])
 
     // Process depending on retval
     const width = window.innerWidth;
@@ -38,24 +54,12 @@ const ChatBot = () => {
     const breakpoint = 1000;
     const [currentPage, setCurrentPage] = useState(0);
     const [openHistory, setOpenHistory] = useState(width < breakpoint ? (false) : (true));
-
-    if (!listQuestion) {
-        /* const response = storeData ({ userToken, id: user.sub, pages })
-        const { status, message, data } = response;
-        if (status !== 200) {
-            toast.error(message, {
-                position: toast.POSITION.TOP_RIGHT
-            });
-        } else {
-            console.log(data);
-        } */
-    }
     
     return (
         <div style={backgroundStyle} className="flex lg:p-[3vh]">
             <Chat style={backgroundStyle} className="flex p-[3vh]" 
             pages={pages} setPages={setPages} currentPage={currentPage} setCurrentPage={setCurrentPage}
-            openHistory={openHistory} setOpenHistory={setOpenHistory} token={userToken} user={user} />
+            openHistory={openHistory} setOpenHistory={setOpenHistory} token={userToken} user={user} logout={logout} />
             <ToastContainer />
         </div>
     );

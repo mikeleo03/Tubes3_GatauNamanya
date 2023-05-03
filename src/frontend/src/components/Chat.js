@@ -9,7 +9,7 @@ import { getAnswer, updateData } from "../requests/Requests";
 
 import send from "../assets/icons/send.webp"
 
-function Chat({ pages, setPages, currentPage, setCurrentPage, openHistory, setOpenHistory, token, user }) {
+function Chat({ pages, setPages, currentPage, setCurrentPage, openHistory, setOpenHistory, token, user, logout }) {
     // Handle Users Messages
     const bottomRef = useRef(null);
     const textareaRef = useRef(null);
@@ -137,7 +137,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, openHistory, setOp
                     </form>
                 </div>
             </div>
-            {openHistory && <ChatHistory pages={pages} onPageChange={setPages} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} setIsKMP={setIsKMP} openHistory={openHistory} setOpenHistory={setOpenHistory} user={user} token={token}/>}
+            {openHistory && <ChatHistory pages={pages} onPageChange={setPages} incrementPage={incrementPage} decrementPage={decrementPage} setPageNow={setCurrentPage} setIsKMP={setIsKMP} openHistory={openHistory} setOpenHistory={setOpenHistory} user={user} token={token} logout={logout}/>}
         </div>
     );
 };
