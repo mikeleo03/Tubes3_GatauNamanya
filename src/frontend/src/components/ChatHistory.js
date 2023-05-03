@@ -85,7 +85,7 @@ function ChatHistory({ pages, onPageChange, incrementPage, decrementPage, setPag
                     </button>
                 </div>
             </div>
-            <div className="md:mt-2 md:mb-2 mt-1 mb-1 h-px bg-slate-300"></div>
+            <div className="mt-1 mb-1 h-px bg-slate-300"></div>
         </div>
     );
 
