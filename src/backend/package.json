@@ -16,7 +16,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server-prod": "NODE_ENV=production nodemon src/index.js",
+    "start-prod": "NODE_ENV=production nodemon src/index.js",
     "start-dev": "nodemon src/index.js"
   },
   "author": "",
