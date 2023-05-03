@@ -38,6 +38,19 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, openHistory, setOp
                 
                 setPages(newPages);
                 setNewQuestion('');
+
+                console.log(pages);
+
+                /* // Update to database
+                const response3 = updateData ({ token, id: user.sub, pages })
+                const { status3, message3, data3 } = response3;
+                if (status3 !== 200) {
+                    toast.error(message3, {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                } else {
+                    console.log(data3);
+                } */
         
                 // Get the answer
                 const response = await getAnswer({ token, question: newQuestion, algorithm: isKMP ? 'KMP' : 'BM' });
@@ -59,7 +72,7 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, openHistory, setOp
                     });
                 }
 
-                // Update to database
+                /* // Update to database
                 const response2 = updateData ({ token, id: user.sub, pages })
                 const { status2, message2, data2 } = response2;
                 if (status2 !== 200) {
@@ -68,7 +81,8 @@ function Chat({ pages, setPages, currentPage, setCurrentPage, openHistory, setOp
                     });
                 } else {
                     console.log(data2);
-                }
+                } */
+                console.log(pages);
             }
         } else {
             toast.error("The chat page is empty, You can't add any message here!", {

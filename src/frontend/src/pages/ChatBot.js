@@ -46,7 +46,7 @@ const ChatBot = () => {
             }
         });
     
-    }, [getAccessTokenSilently, user.sub])
+    }, [getAccessTokenSilently, user.sub, userToken])
 
     // Process depending on retval
     const width = window.innerWidth;
