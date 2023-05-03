@@ -1,6 +1,6 @@
 const type_regex = {
     date : /^((\s*(hari)\s*(apa)?)|\s*)\s*\d{2}[\/-]\d{2}[\/-]\d{4}\s*((hari\s*(apa)?\s*\??)|\??|[^\w\d])$/i,
-    calculator : /^[^a-zA-Z]*\s*(\(*\s*\(*\d+(\.\d+)?\)*\s*([-+*/^]\s*)+\s*\(*\d+(\.\d+)?\)*\s*\)*\s*[=\?]?)+[^a-zA-Z]*$/,
+    calculator : /[\s\(]*\-?\d+(\.\d+)*([-+*/^]+-?\d+(\.\d+)*[\s\)]*)*[\s\)]*(=|\?)?$/,
     add : /(tambahkan|tambah) pertanyaan .+ dengan jawaban .+/i,
     delete : /hapus pertanyaan \S+/i
 }

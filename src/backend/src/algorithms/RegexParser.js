@@ -22,8 +22,22 @@ async function getAnswer(text, algorithm) {
                 a = "Hari " + days[d.getDay()];
                 break;
             case "calculator" :
-                t = t.replace("=", "").replace("?","");
-                a = String(Calculate(t));
+                let idx = t.indexOf("=");
+                if (idx == -1) {
+                    idx = t.indexOf("?");
+                }
+                if (idx != -1) {
+                    for (let i = idx+1; i < t.length; i++) {
+                        if (t[i] != " ") {
+                            a = "Sintaks persamaan tidak sesuai";
+                            break;
+                        }
+                    }
+                }
+                if (a == "") {
+                    t = t.replace("=", "").replace("?","");
+                    a = String(Calculate(t));
+                }
                 break;
             case "add" :
                 t = t.replace(/(tambahkan|tambah) pertanyaan /i, "").replace(/dengan jawaban /i, ",").trim().split(",");
