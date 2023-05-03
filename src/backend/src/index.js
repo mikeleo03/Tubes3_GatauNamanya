@@ -35,20 +35,11 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-// UNSECURE API
-app.use('/queries', queryRouter)
-app.use('/histories', historyRouter)
+const prefix = process.env.NODE_ENV === "production"? "/api" : "";
 
 // SECURE API
-// app.use('/queries', checkJwt, queryRouter)
-// app.use('/histories', checkJwt, historyRouter)
-
-// app.use((err, req, res, next) => {  
-//     if (err.name === 'UnauthorizedError') {
-//         res.status(401).json({"error" : err.name + ": " + err.message});
-//         console.log({"error" : err.name + ": " + err.message})
-//     }
-// })
+app.use('/queries', checkJwt, queryRouter)
+app.use('/histories', checkJwt, historyRouter)
 
 //Connecting to DB
 read_env()
