@@ -5,7 +5,6 @@ import queryRouter from './routes/QueryRoute.js'
 import historyRouter from './routes/HistoryRoute.js'
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import checkJwt from './authz/check-jwt.js';
 
 dotenv.config();
 const app = express();
@@ -38,8 +37,8 @@ app.use(bodyParser.json());
 const prefix = process.env.NODE_ENV === "production"? "/api" : "";
 
 // SECURE API
-app.use('/queries', checkJwt, queryRouter)
-app.use('/histories', checkJwt, historyRouter)
+app.use('/queries', queryRouter)
+app.use('/histories', historyRouter)
 
 //Connecting to DB
 read_env()
