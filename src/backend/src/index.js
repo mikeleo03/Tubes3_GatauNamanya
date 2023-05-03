@@ -37,8 +37,8 @@ app.use(bodyParser.json());
 const prefix = process.env.NODE_ENV === "production"? "/api" : "";
 
 // SECURE API
-app.use('/queries', queryRouter)
-app.use('/histories', historyRouter)
+app.use(prefix + '/queries', queryRouter)
+app.use(prefix + '/histories', historyRouter)
 
 //Connecting to DB
 read_env()
