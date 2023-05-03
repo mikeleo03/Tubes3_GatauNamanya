@@ -1,12 +1,13 @@
 import express, { response } from 'express';
 import getAnswer from "../algorithms/RegexParser.js";
 import History from '../models/History.js'
+import checkJwt from '../authz/check-jwt.js';
 
 const router = express.Router();
 router.use(express.json());
 
 
-router.get('/:id', async (req,res) => {
+router.get('/:id', checkJwt, async (req,res) => {
     // find all data
     History.findOne({user_id: req.params.id})
     .then(data => {
@@ -36,7 +37,7 @@ router.get('/:id', async (req,res) => {
     })
 })
 
-router.post('/', async (req,res) => {
+router.post('/', checkJwt, async (req,res) => {
     //create model to be saved in database
     const history = new History({
 
@@ -62,7 +63,7 @@ router.post('/', async (req,res) => {
 })
 
 
-router.put('/:id', async (req,res) => {
+router.put('/:id', checkJwt, async (req,res) => {
 
     History.findOneAndUpdate({user_id: req.params.id}, req.body, {new: true})
     .then(data => {

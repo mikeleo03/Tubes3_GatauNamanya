@@ -1,11 +1,12 @@
 import express, { response } from 'express';
 import getAnswer from "../algorithms/RegexParser.js";
+import checkJwt from '../authz/check-jwt.js';
 
 const router = express.Router();
 router.use(express.json());
 
 
-router.get('/answer', async (req,res) => {
+router.get('/answer', checkJwt, async (req,res) => {
     getAnswer(req.query.question, req.query.algorithm)
 
     .then(answer => {
