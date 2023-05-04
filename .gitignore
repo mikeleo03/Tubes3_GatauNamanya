@@ -352,3 +352,4 @@ package-lock.json
 package.json
 src/frontend/package-lock.json
 src/frontend/package.json
+*.pem
