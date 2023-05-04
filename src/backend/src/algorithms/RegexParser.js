@@ -41,14 +41,14 @@ async function getAnswer(text, algorithm) {
                 break;
             case "add" :
                 t = t.replace(/(tambahkan|tambah) pertanyaan /i, "").replace(/dengan jawaban /i, ",").trim().split(",");
-                q = t[0].toLowerCase().trim();
+                q = t[0].trim();
                 a = t[1].trim();
                 let res = await Database.save_question(q,a,algorithm);
                 a = res;
                 break;
             case "delete" :
                 t = t.replace(/hapus pertanyaan /i, "").trim();
-                q = t.toLowerCase();
+                q = t;
                 a = await Database.delete_question(q,algorithm);
                 break;
             default :
@@ -56,7 +56,7 @@ async function getAnswer(text, algorithm) {
                     a = "Pertanyaan kosong";
                     break;
                 }
-                a = await Database.get_answer(t.toLowerCase(),algorithm);
+                a = await Database.get_answer(t,algorithm);
                 break;
         }
         if (i < split_text.length) {

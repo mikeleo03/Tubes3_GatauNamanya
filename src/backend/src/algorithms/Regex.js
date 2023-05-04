@@ -8,6 +8,11 @@ const type_regex = {
 function identify_statement_type(text) {
     for (let type in type_regex) {
         if (type_regex[type].test(text)) {
+            if (type == "calculator") {
+                if (/[^(\d|\.|+|\-|*|/|\^|\s|\(|\)|=|\?)]/.test(text)) {
+                    continue
+                }
+            }
             return type;
         }
     }

@@ -29,7 +29,7 @@ async function find_question(q, algorithm) {
 }
 
 async function delete_question(q, algorithm) {
-  let id = await find_question(q, algorithm);
+  let id = await find_question(q.toLowerCase(), algorithm);
   if (id != -1) {
     await Query.deleteOne({_id : id});
     return "Pertanyaan " + q + " telah dihapus";
@@ -39,9 +39,9 @@ async function delete_question(q, algorithm) {
 }
 
 async function save_question(q,a,algorithm) {
-  let found = await delete_question(q, algorithm);
+  let found = await delete_question(q.toLowerCase(), algorithm);
   const newEntry = await Query.create({
-    question : q,
+    question : q.toLowerCase(),
     answer : a,
   });
   if (found === "Pertanyaan " + q + " telah dihapus")
@@ -51,7 +51,7 @@ async function save_question(q,a,algorithm) {
 }
 
 async function get_answer(q, algorithm) {
-  let id = await find_question(q, algorithm);
+  let id = await find_question(q.toLowerCase(), algorithm);
   if (id != -1) {
     let answer = await Query.findOne({_id : id});
     return answer.answer;
@@ -59,7 +59,7 @@ async function get_answer(q, algorithm) {
     let response = "Pertanyaan tersebut tidak ditemukan di database."
     let similar_questions = [];
     for await (const doc of Query.find()) {
-      if (LCS(q, doc.question) >= q.length * 0.4)  {
+      if (LCS(q.toLowerCase(), doc.question) >= q.length * 0.4)  {
         similar_questions.push(doc.question);
       }
     }
