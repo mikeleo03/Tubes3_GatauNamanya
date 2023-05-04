@@ -350,3 +350,5 @@ node_modules/whatwg-url/package.json
 node_modules/whatwg-url/README.md
 node_modules/whatwg-url/webidl2js-wrapper.js
 *.pem
+src/backend/.env
+src/frontend/.env
