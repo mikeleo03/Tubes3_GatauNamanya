@@ -94,7 +94,7 @@ $ git clone https://github.com/mikeleo03/Tubes3_GatauNamanya.git
     $ npm run start-dev
    ```
 
-## Cara Mengoprasikan Program
+## Cara Mengoperasikan Program
 1. *Login* ke *website* dengan akun Auth0 atau gunakan autentikasi Google. Jika proses *login* berhasil, maka pengguna akan dihadapkan pada layar utama program.
 2. Pilih algoritma pencarian yang diinginkan pada bagian bawah kanan aplikasi.
 3. Ketikkan pertanyaan pada kolom masukan yang tersedia dan tunggu beberapa saat hingga Anda memperoleh jawaban dari *chatbot*
