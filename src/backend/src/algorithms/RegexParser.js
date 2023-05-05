@@ -15,7 +15,9 @@ async function getAnswer(text, algorithm) {
             case "date" :
                 let split_date = t.replace(/Hari/i, "").replace(/apa/i, "").replace("?","").split("/");
                 let d = new Date(split_date[1].trim() + "/" + split_date[0].trim() + "/" + split_date[2].trim());
-                if (days[d.getDay()] == undefined) {
+                if (d.getDate().toString() != Number(split_date[0].trim()) || 
+                (d.getMonth()+1).toString() != Number(split_date[1].trim()) || 
+                d.getFullYear().toString() != Number(split_date[2].trim()) || days[d.getDay()] == undefined) {
                     a = "Tanggal tidak valid";
                     break;
                 }
