@@ -12,11 +12,11 @@
 - [Screenshots](#screenshots)
 
 ## Author
-│ NIM      │ Nama                       │ Github Profile                               │
-│ -------- │ ---------------------------│----------------------------------------------│
-│ 13521108 │ Michael Leon Putra Widhi   │ [mikeleo03](https://github.com/mikeleo03)    │
-│ 13521148 │ Johanes Lee                │ [Enliven26](https://github.com/Enliven26)    │
-│ 13521172 │ Nathan Tenka               │ [Nat10k](https://github.com/Nat10k)          │
+| NIM      | Nama                       | Github Profile                               |
+| -------- | ---------------------------|----------------------------------------------|
+| 13521108 | Michael Leon Putra Widhi   | [mikeleo03](https://github.com/mikeleo03)    |
+| 13521148 | Johanes Lee                | [Enliven26](https://github.com/Enliven26)    |
+| 13521172 | Nathan Tenka               | [Nat10k](https://github.com/Nat10k)          |
 
 ## Deskripsi Singkat
 Dalam tugas besar ini, dibangun sebuah aplikasi ChatGPT sederhana dengan mengaplikasikan pendekatan QA yang paling sederhana. Pencarian pertanyaan yang paling mirip dengan pertanyaan yang diberikan pengguna dilakukan dengan algoritma pencocokan string Knuth-Morris-Pratt (KMP) dan Boyer-Moore (BM). Regex digunakan untuk menentukan format dari pertanyaan (akan dijelaskan lebih lanjut pada bagian fitur aplikasi). Jika tidak ada satupun pertanyaan pada database yang exact match dengan pertanyaan pengguna melalui algoritma KMP ataupun BM, maka gunakan pertanyaan termirip dengan kesamaan setidaknya 90% Apabila tidak ada pertanyaan yang kemiripannya di atas 90%, maka chatbot akan memberikan maksimum 3 pilihan pertanyaan yang paling mirip untuk dipilih oleh pengguna.
