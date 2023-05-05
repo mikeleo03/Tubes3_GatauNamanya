@@ -8,7 +8,7 @@
 - [Sistematika File](#sistematika-file)
 - [Requirements](#requirements)
 - [Cara Mengkompilasi dan Menjalankan Program](#cara-mengkompilasi-dan-menjalankan-program)
-- [Cara Mengoperasikan Program](#cara-mengoprasikan-program)
+- [Cara Mengoperasikan Program](#cara-mengoperasikan-program)
 - [Screenshots](#screenshots)
 
 ## Author
